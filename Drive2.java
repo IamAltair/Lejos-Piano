@@ -30,6 +30,47 @@ import lejos.utility.Delay;
 import lejos.hardware.ev3.LocalEV3;
 import java.io.File;
 import java.io.FileInputStream;
+import lejos.hardware.sensor.*;
+import lejos.hardware.port.*;
+import lejos.robotics.SampleProvider;
+
+
+ class Ultrasonic {
+	private static SensorModes sensor;
+	private float[] ultraSample;
+	private static SampleProvider ultraLeser;
+
+
+	public Ultrasonic(Port port) {
+
+		sensor = new EV3UltrasonicSensor(port);
+		ultraLeser = sensor.getMode("Distance");
+		ultraSample = new float [ultraLeser.sampleSize()];
+		/*
+		this.port = port;
+		Brick brick = BrickFinder.getDefault();
+		EV3 ev3 = (EV3) BrickFinder.getLocal();
+		Port s = brick.getPort(port);
+		EV3UltrasonicSensor ultraSensor = new EV3UltrasonicSensor(s);
+		SampleProvider ultraLeser = ultraSensor.getDistanceMode();
+		ultraSample = new float [ultraLeser.sampleSize()];
+		ultraLeser.fetchSample(ultraSample, 0);
+	*/
+	}
+
+	public float getUltraSample() {
+		ultraLeser.fetchSample(ultraSample, 0);
+		return ultraSample[0];
+	}
+
+
+
+
+
+
+}
+
+
 
 class Tangenter {
 	double bpm;
@@ -38,7 +79,7 @@ class Tangenter {
 	double i = 0;
 	double lengdeCM;
 	double vei = 0;
-	Ultrasonic ultra = new Ultrasonic();
+	Ultrasonic ultra = new Ultrasonic(SensorPort.S1);
 	double v = 0;
 	double h = 0;
 	long a = 0;
@@ -57,18 +98,6 @@ class Tangenter {
 
 		mpb = 60/bpm*standarNote*4*1000;
 	}
-
-		Brick brick = BrickFinder.getDefault();
-		EV3 ev3 = (EV3) BrickFinder.getLocal();
-		Port s1 = brick.getPort("S1");
-		EV3UltrasonicSensor ultraSensor1 = new EV3UltrasonicSensor(s1);
-		SampleProvider ultraLeser1 = ultraSensor1.getDistanceMode();
-		float[] ultraSample1 = new float [ultraLeser1.sampleSize()];
-
-		public float getUltraSample() {
-			ultraLeser.fetchSample(ultraSample, 0);
-			return ultraSample[0];
-		}
 
 		/*public void gayShit() {Brick brick = BrickFinder.getDefault();
 			EV3 ev3 = (EV3) BrickFinder.getLocal();
@@ -218,7 +247,7 @@ public class Drive2
 		System.out.println("Getting some ultrasound1");
 		Thread.sleep(1000);
 
-		Ultrasonic jens1 = new Ultrasonic();
+		Ultrasonic jens1 = new Ultrasonic(SensorPort.S1);
 		//jens1.gayShit();
 		System.out.println("Getting some ultrasound2");
 		Thread.sleep(1000);

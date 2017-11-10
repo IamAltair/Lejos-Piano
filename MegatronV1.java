@@ -28,11 +28,18 @@ import lejos.hardware.motor.BaseRegulatedMotor;
 class MegatronV1 {
   public static void main(String[] args) throws Exception {
 
+
+	  	UltrasonicSonicSensor ultra = new UltrasonicSonicSensor(SensorPort.S4);
+	  	range = ultra.getDistance();
+
+
     System.out.println("PROJECT MEGATRON: INITIATED");
     System.out.println("STATUS: FULLY OPERATIONAL");
     System.out.println("WAITING FOR COLORS...");
     thread.sleep(1000);
 
-    
+
+
+
   }
 }
