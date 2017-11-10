@@ -1,30 +1,8 @@
 import lejos.hardware.motor.*;
 import lejos.hardware.sensor.NXTLightSensor;
 import lejos.hardware.*;
-import lejos.hardware.port.Port;
 import lejos.robotics.SampleProvider;
-import lejos.hardware.ev3.LocalEV3;
-import lejos.hardware.Button;
-import lejos.hardware.sensor.EV3UltrasonicSensor;
-import lejos.hardware.motor.*;
-import lejos.hardware.lcd.*;
-import lejos.hardware.sensor.EV3TouchSensor;
-import lejos.hardware.sensor.EV3ColorSensor;
-import lejos.hardware.sensor.EV3UltrasonicSensor;
-import lejos.hardware.sensor.EV3GyroSensor;
-import lejos.hardware.sensor.NXTTouchSensor;
-import lejos.hardware.sensor.NXTLightSensor;
-import lejos.hardware.sensor.NXTColorSensor;
-import lejos.hardware.sensor.NXTSoundSensor;
-import lejos.hardware.sensor.NXTUltrasonicSensor;
-import lejos.hardware.port.Port;
-import lejos.hardware.Brick;
-import lejos.hardware.BrickFinder;
-import lejos.hardware.ev3.EV3;
-import lejos.hardware.Keys;
-import lejos.hardware.sensor.SensorModes;
 import lejos.robotics.SampleProvider;
-import lejos.hardware.sensor.*;
 import lejos.hardware.Sound;
 import lejos.utility.Delay;
 import lejos.hardware.ev3.LocalEV3;
@@ -46,25 +24,26 @@ import lejos.robotics.SampleProvider;
 		sensor = new EV3UltrasonicSensor(port);
 		ultraLeser = sensor.getMode("Distance");
 		ultraSample = new float [ultraLeser.sampleSize()];
-		/*
-		this.port = port;
-		Brick brick = BrickFinder.getDefault();
-		EV3 ev3 = (EV3) BrickFinder.getLocal();
-		Port s = brick.getPort(port);
-		EV3UltrasonicSensor ultraSensor = new EV3UltrasonicSensor(s);
-		SampleProvider ultraLeser = ultraSensor.getDistanceMode();
-		ultraSample = new float [ultraLeser.sampleSize()];
-		ultraLeser.fetchSample(ultraSample, 0);
-	*/
 	}
 
 	public float getUltraSample() {
 		ultraLeser.fetchSample(ultraSample, 0);
 		return ultraSample[0];
 	}
+
+
+	public boolean ikkeFall(float min, float max){
+		ultraLeser.fetchSample(ultraSample, 0);
+		float distance = ultraSample[0];
+
+		if(distance <= min || max >= distance){
+			return true;
+		}else {
+			return false;
+		}
+	}
+
 }
-
-
 
 class Tangenter {
 	double bpm;
@@ -93,47 +72,49 @@ class Tangenter {
 		mpb = 60/bpm*standarNote*4*1000;
 	}
 
-		/*public void gayShit() {Brick brick = BrickFinder.getDefault();
-			EV3 ev3 = (EV3) BrickFinder.getLocal();
-			Port s1 = brick.getPort("S1");
-			EV3UltrasonicSensor ultraSensor1 = new EV3UltrasonicSensor(s1);
-			SampleProvider ultraLeser1 = ultraSensor1.getDistanceMode();
-			float[] ultraSample1 = new float [ultraLeser1.sampleSize()];
-			ultraLeser1.fetchSample(ultraSample, 0);
-			System.out.println(ultraSample1[0]);
-
-	}*/
-
-	public void spillNote(char note, int oktav, boolean skarp, double lengde) throws Exception {
+	public void spillNote(char note, int oktav, boolean skarp, double lengde){
 		bevegTilAvstand(note, oktav, skarp);
 		fingering(lengde);
 	}
 
-	public void spillNoteOpt(double lengde, double noteOpt) throws Exception {
+	public void spillNoteOpt(double lengde, double noteOpt){
 		bevegTilAvstandOpt(noteOpt);
 		fingering(lengde);
 	}
 
-	public void fingering(double lengde) throws Exception {
+	public void fingering(double lengde) {
 		if (v<h) {
 			fingeringH(lengde);
 		} else {fingeringV(lengde);}
 	}
 
-	public void fingeringH(double lengde) throws Exception {
+	public void fingeringH(double lengde) {
 		Motor.C.rotate(90);
 		c = mpb*lengde;
-		long a = (long) c;
-		Thread.sleep(a);
+		a = (long) c;
+		//Thread.sleep(a);
 		Motor.C.rotateTo(100);
 	}
 
-	public void fingeringV(double lengde) throws Exception {
+	public void fingeringV(double lengde){
 		Motor.D.rotate(90);
 		c = mpb*lengde;
-		long a = (long) c;
-		Thread.sleep(a);
+		a = (long) c;
+	//	Thread.sleep(a);
 		Motor.D.rotateTo(100);
+	}
+
+	public void ikkeFallAv(float min, float max){
+	if(ultra.ikkeFall(min, max)){
+				Motor.A.forward();
+				Motor.B.backward();
+	}else{
+				Motor.A.backward();
+				Motor.B.forward();
+	}
+
+
+
 	}
 
 	public void bevegTilAvstand(char note, int oktav, boolean skarp) {
@@ -161,7 +142,7 @@ class Tangenter {
 	}
 
 	public void bevegTilAvstandOpt(double noteOpt) {
-		//		ultra.runSample();
+
 				v = noteOpt+5;
 				h = noteOpt-5;
 				if(v>=h) {
@@ -174,11 +155,9 @@ class Tangenter {
 						Motor.A.forward();
 						Motor.B.backward();
 					}
-				}
-
-				else {
+				}else{
 					while(vei<=ultra.getUltraSample()){
-			//			ultra.runSample();
+		//				ultra.runSample();
 						Motor.A.backward();
 						Motor.B.forward();
 					}
@@ -224,35 +203,14 @@ class Tangenter {
 public class Drive2
 {
 	public static void main(String[] args) throws Exception{
+		Tangenter jens = new Tangenter(43, 90, 1);
+		Ultrasonic jens1 = new Ultrasonic(SensorPort.S1);
+		float minimum = 0.312f;
+		float maksimum = 0.543f;
+
+		jens.ikkeFallAv(minimum,maksimum);
 
 		System.out.println("hei");
-
-		/*Brick brick = BrickFinder.getDefault();
-		EV3 ev3 = (EV3) BrickFinder.getLocal();
-		Port s = brick.getPort("S1");
-		EV3UltrasonicSensor ultraSensor = new EV3UltrasonicSensor(s);
-		SampleProvider ultraLeser = ultraSensor.getDistanceMode();
-		float[] ultraSample = new float [ultraLeser.sampleSize()];
-		ultraLeser.fetchSample(ultraSample, 0);
-		System.out.println(ultraSample[0]);*/
-
-		Tangenter jens = new Tangenter(43, 90, 1);
-
-		System.out.println("Getting some ultrasound1");
-		Thread.sleep(1000);
-
-		Ultrasonic jens1 = new Ultrasonic(SensorPort.S1);
-		//jens1.gayShit();
-		System.out.println("Getting some ultrasound2");
-		Thread.sleep(1000);
-
-		/*jens1.innitiate();
-		System.out.println("Getting some ultrasound3");
-		Thread.sleep(1000);*/
-
-	//	jens1.runSample();
-		System.out.println("Getting some ultrasample");
-		Thread.sleep(1000);
 
 		float a = jens1.getUltraSample();
 		System.out.println(a);
