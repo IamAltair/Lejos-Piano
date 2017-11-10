@@ -62,12 +62,6 @@ import lejos.robotics.SampleProvider;
 		ultraLeser.fetchSample(ultraSample, 0);
 		return ultraSample[0];
 	}
-
-
-
-
-
-
 }
 
 
@@ -89,7 +83,7 @@ class Tangenter {
 		this.bpm = bpm;
 		this.lengdeCM = lengdeCM;
 
-		ultra.innitiate();
+	//	ultra.innitiate();
 
 		Motor.A.setSpeed(900);
 		Motor.B.setSpeed(900);
@@ -167,7 +161,7 @@ class Tangenter {
 	}
 
 	public void bevegTilAvstandOpt(double noteOpt) {
-				ultra.runSample();
+		//		ultra.runSample();
 				v = noteOpt+5;
 				h = noteOpt-5;
 				if(v>=h) {
@@ -176,7 +170,7 @@ class Tangenter {
 
 				if(vei>=ultra.getUltraSample()) {
 					while(vei>=ultra.getUltraSample()){
-						ultra.runSample();
+			//			ultra.runSample();
 						Motor.A.forward();
 						Motor.B.backward();
 					}
@@ -184,7 +178,7 @@ class Tangenter {
 
 				else {
 					while(vei<=ultra.getUltraSample()){
-						ultra.runSample();
+			//			ultra.runSample();
 						Motor.A.backward();
 						Motor.B.forward();
 					}
@@ -256,7 +250,7 @@ public class Drive2
 		System.out.println("Getting some ultrasound3");
 		Thread.sleep(1000);*/
 
-		jens1.runSample();
+	//	jens1.runSample();
 		System.out.println("Getting some ultrasample");
 		Thread.sleep(1000);
 
