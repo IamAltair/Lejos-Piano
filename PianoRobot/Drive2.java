@@ -32,16 +32,16 @@ import java.io.File;
 import java.io.FileInputStream;
 
 class Tangenter {
-	double bpm;
-	double mpb;
-	double standarNote;
-	double i = 0;
-	double lengdeCM;
-	double vei = 0;
-	double v = 0;
-	double h = 0;
-	long a = 0;
-	double c = 0;
+	private double bpm;
+	private double mpb;
+	private double standarNote;
+	private double i = 0;
+	private double lengdeCM;
+	private double vei = 0;
+	private double v = 0;
+	private double h = 0;
+	private long a = 0;
+	private double c = 0;
 
 
 	Port port = LocalEV3.get().getPort("S1");
