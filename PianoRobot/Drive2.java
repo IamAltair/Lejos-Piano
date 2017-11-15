@@ -35,6 +35,41 @@ import lejos.hardware.Device;
 import lejos.hardware.*;
 import lejos.*;
 
+ class Ultrasonic {
+	private static SensorModes sensor;
+	private float[] ultraSample;
+	private static SampleProvider ultraLeser;
+
+
+	public Ultrasonic(Port port) {
+
+		sensor = new EV3UltrasonicSensor(port);
+		ultraLeser = sensor.getMode("Distance");
+		ultraSample = new float [ultraLeser.sampleSize()];
+
+	}
+
+	public float getUltraSample() {
+		ultraLeser.fetchSample(ultraSample, 0);
+		return ultraSample[0];
+	}
+
+
+	public boolean ikkeFall(float min, float max){
+		ultraLeser.fetchSample(ultraSample, 0);
+		float distance = ultraSample[0];
+
+		if(distance <= min || max >= distance){
+			return true;
+		}else {
+			return false;
+		}
+	}
+
+}
+
+
+
 class Tangenter {
 	private double bpm;
 	private double mpb;
@@ -46,6 +81,7 @@ class Tangenter {
 	private double h = 0;
 	private long a = 0;
 	private double c = 0;
+	private Ultrasonic uss = new Ultrasonic(SensorPort.S4);
 
 	public Tangenter(double lengde, double bpm, double standarNote) {
 		this.bpm = bpm;
@@ -56,23 +92,11 @@ class Tangenter {
 		Motor.C.setSpeed(900);
 		Motor.D.setSpeed(900);
 		mpb = 60/bpm*standarNote*4*1000;
-
 		/*Port port = LocalEV3.get().getPort("S1");
 		SensorModes sensor = new EV3UltrasonicSensor(port);
 		SampleProvider distance = sensor.getMode("Distance");
 		float[] sample = new float[distance.sampleSize()];*/
 	}
-
-		public float getUltraSample() {
-			Port port = LocalEV3.get().getPort("S1");
-			SensorModes sensor = new EV3UltrasonicSensor(port);
-			SampleProvider distance = sensor.getMode("Distance");
-			float[] sample = new float[distance.sampleSize()];
-			distance.fetchSample(sample, 0);
-			return sample[0];
-			sensor.close();
-		}
-
 		/*public void gayShit() {Brick brick = BrickFinder.getDefault();
 			EV3 ev3 = (EV3) BrickFinder.getLocal();
 			Port s1 = brick.getPort("S1");
@@ -120,19 +144,19 @@ class Tangenter {
 		if(finnVeiV(note, oktav, skarp) >= finnVeiH(note, oktav, skarp)) {
 			vei = finnVeiV(note, oktav, skarp);
 			} else {vei = finnVeiH(note, oktav, skarp);}
-			getUltraSample();
+			uss.getUltraSample();
 
-		if(vei>=getUltraSample()) {
-			while(vei>=getUltraSample()){
-				getUltraSample();
+		if(vei>= uss.getUltraSample()) {
+			while(vei>=uss.getUltraSample()){
+				uss.getUltraSample();
 				Motor.A.forward();
 				Motor.B.backward();
 			}
 		}
 
 		else {
-			while(vei<=getUltraSample()){
-				getUltraSample();
+			while(vei<=uss.getUltraSample()){
+				uss.getUltraSample();
 				Motor.A.backward();
 				Motor.B.forward();
 			}
@@ -141,24 +165,24 @@ class Tangenter {
 	}
 
 	public void bevegTilAvstandOpt(double noteOpt) {
-				getUltraSample();
+				uss.getUltraSample();
 				v = noteOpt+5;
 				h = noteOpt-5;
 				if(v>=h) {
 					vei = v;
 				} else {vei = h;}
 
-				if(vei>=getUltraSample()) {
-					while(vei>=getUltraSample()){
-						getUltraSample();
+				if(vei>=uss.getUltraSample()) {
+					while(vei>=uss.getUltraSample()){
+						uss.getUltraSample();
 						Motor.A.forward();
 						Motor.B.backward();
 					}
 				}
 
 				else {
-					while(vei<=getUltraSample()){
-						getUltraSample();
+					while(vei<=uss.getUltraSample()){
+						uss.getUltraSample();
 						Motor.A.backward();
 						Motor.B.forward();
 					}
@@ -220,7 +244,6 @@ public class Drive2
 		Thread.sleep(1000);
 		Tangenter jens = new Tangenter(43, 90, 1);
 		System.out.println("Getting some more sounds");
-		System.out.println(jens.getUltraSample());
 		Thread.sleep(1000);
 		jens.spillNote('A',2,false,1/4);
 	}
