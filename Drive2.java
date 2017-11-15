@@ -237,32 +237,13 @@ public class Drive2
 {
 	public static void main(String[] args) throws Exception{
 		System.out.println("hey mama");
-		Thread.sleep(10000);
+		Thread.sleep(1000);
 
-		Tangenter jens = new Tangenter(43, 90, 1);
-		// Ultrasonic jens1 = new Ultrasonic(SensorPort.S1);
-		float minimum = 0.04000003f;
-		float maksimum = 0.543f;
+		Ultrasonic uss = new Ultrasonic(SensorPort.S4);
 
-		//jens.ikkeFallAv(minimum,maksimum);
 
 		System.out.println("hei");
 		Thread.sleep(9000);
-
-		// float a = jens1.getUltraSample();
-		// System.out.println(a);
-		/*System.out.println("playing C2");
-		Thread.sleep(1000);
-		jens.spillNote('C',2,false, 0.25);
-		System.out.println("playing D2");
-		Thread.sleep(1000);
-		jens.spillNote('D',2,false, 0.25);
-		System.out.println("playing E2");
-		Thread.sleep(1000);
-		jens.spillNote('E', 2 ,false, 0.25);
-		System.out.println("Sucses!!!");
-		Thread.sleep(10000);
-		*/
 	}
 
 }
