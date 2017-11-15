@@ -156,10 +156,10 @@ class Tangenter {
 		this.bpm = bpm;
 		this.lengdeCM = lengdeCM;
 
-		Motor.A.setSpeed(900);
-		Motor.B.setSpeed(900);
-		Motor.C.setSpeed(900);
-		Motor.D.setSpeed(900);
+		Motor.A.setSpeed(150);
+		Motor.B.setSpeed(150);
+		Motor.C.setSpeed(150);
+		Motor.D.setSpeed(150);
 		mpb = 60/bpm*standarNote*4*1000;
 	}
 
@@ -202,17 +202,20 @@ class Tangenter {
 		if(v >= h) {
 			vei = h;
 			} else {vei = v;}
-			uss.getUltraSample();
 
-		if(vei>= uss.getUltraSample()) {
-			while(vei>=uss.getUltraSample()){
+			float a = uss.getUltraSample();
+
+		if(vei>= a) {
+			while(vei>=a){
+				a = uss.getUltraSample();
 				Motor.A.forward();
 				Motor.B.backward();
 			}
 		}
 
 		else {
-			while(vei<=uss.getUltraSample()){
+			while(vei<=a){
+				a = uss.getUltraSample();
 				Motor.A.backward();
 				Motor.B.forward();
 			}
@@ -224,19 +227,22 @@ class Tangenter {
 				uss.getUltraSample();
 				v = noteOpt+5;
 				h = noteOpt+18;
+				float a = uss.getUltraSample();
 				if(v>=h) {
 					vei = h;
 				} else {vei = v;}
 
-				if(vei>=uss.getUltraSample()) {
-					while(vei>=uss.getUltraSample()){
+				if(vei>=a) {
+					while(vei>=a){
+						a = uss.getUltraSample();
 						Motor.A.forward();
 						Motor.B.backward();
 					}
 				}
 
 				else {
-					while(vei<=uss.getUltraSample()){
+					while(vei<=a){
+						a = uss.getUltraSample();
 						Motor.A.backward();
 						Motor.B.forward();
 					}
@@ -290,9 +296,20 @@ public class Drive2
 		System.out.println("Getting some ultrasounds");
 		Thread.sleep(1000);
 		Tangenter jens = new Tangenter(43, 90, 1);
-		System.out.println("Getting some more sounds");
+		System.out.println("Fingring");
+		Thread.sleep(2000);
+		jens.fingeringH(1/4);
+		jens.fingeringV(1);
+		System.out.println("Finnvei");
+		Thread.sleep(2000);
+		System.out.println(jens.finnVeiV('B',3,true) + "Venstre");
 		Thread.sleep(1000);
+		System.out.println(jens.finnVeiH('A',2,false) + "Hoyre");
+		Thread.sleep(2000);
+		System.out.println("Spill noter");
+		Thread.sleep(2000);
 		jens.spillNote('A',2,false,1/4);
+
 	}
 
 }
