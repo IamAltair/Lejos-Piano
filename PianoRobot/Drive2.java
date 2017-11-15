@@ -195,6 +195,7 @@ class Tangenter {
 		}
 		return i;
 	}
+	sensor.close();
 }
 
 
@@ -205,7 +206,11 @@ public class Drive2
 
 
 
+<<<<<<< HEAD
 		System.out.println("hei paa dei");
+=======
+		System.out.println("hei p� dei");
+>>>>>>> 5bb77f3f7d37ead70767c442c22759f173d6178a
 
 /*		Port port = LocalEV3.get().getPort("S1");
 		SensorModes sensor = new EV3UltrasonicSensor(port);
