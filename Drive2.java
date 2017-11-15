@@ -24,6 +24,7 @@ import lejos.robotics.SampleProvider;
 		sensor = new EV3UltrasonicSensor(port);
 		ultraLeser = sensor.getMode("Distance");
 		ultraSample = new float [ultraLeser.sampleSize()];
+    sensor.close();
 	}
 
 	public float getUltraSample() {
