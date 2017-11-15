@@ -30,6 +30,10 @@ import lejos.utility.Delay;
 import lejos.hardware.ev3.LocalEV3;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.Closeable;
+import lejos.hardware.Device;
+import lejos.hardware.*;
+import lejos.*;
 
 class Tangenter {
 	private double bpm;
@@ -204,12 +208,6 @@ public class Drive2
 
 
 		System.out.println("hei paa dei");
-
-
-<<<<<<< HEAD
-		System.out.println("hei paa dei");
-=======
->>>>>>> 1b970cdfab77be7817fb89fa4bd1990d57eb2f89
 
 /*		Port port = LocalEV3.get().getPort("S1");
 		SensorModes sensor = new EV3UltrasonicSensor(port);
