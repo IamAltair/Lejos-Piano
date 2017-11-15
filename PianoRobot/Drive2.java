@@ -302,11 +302,6 @@ public class Drive2
 
 
 		System.out.println("hei paa dei");
-		Ultrasonic uss = new Ultrasonic(SensorPort.S4);
-		System.out.println(uss.getUltraSample());
-
-		System.out.println("Getting some ultrasounds");
-		Thread.sleep(1000);
 		Tangenter jens = new Tangenter(43, 90, 1);
 		System.out.println("Fingring");
 		Thread.sleep(2000);
