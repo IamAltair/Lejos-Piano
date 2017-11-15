@@ -220,7 +220,7 @@ class Tangenter {
 
 	}
 
-	public void bevegTilAvstandOpt(double noteOpt) { // Hvilken vei som er minst g kjører den
+	public void bevegTilAvstandOpt(double noteOpt) { // Hvilken vei som er minst g kjrer den
 				uss.getUltraSample();
 				v = noteOpt+5;
 				h = noteOpt+18;
@@ -246,15 +246,15 @@ class Tangenter {
 
 
 
-	public double finnVeiV(char note, int oktav, boolean skarp) { // Finner vei basert på Venstre Offset
+	public double finnVeiV(char note, int oktav, boolean skarp) { // Finner vei basert p Venstre Offset
 		return lengdeCM/22*noteTilVerdi(note, oktav, skarp)+1+5;
 	}
 
-	public double finnVeiH(char note, int oktav, boolean skarp) { // Finner vei basert på Høre offset
+	public double finnVeiH(char note, int oktav, boolean skarp) { // Finner vei basert p Hre offset
 		return lengdeCM/22*noteTilVerdi(note, oktav, skarp)+18+5;
 	}
 
-	public double noteTilVerdi(char note, int oktav, boolean skarp) { // Gjør note om til verdi
+	public double noteTilVerdi(char note, int oktav, boolean skarp) { // Gjr note om til verdi
 		i = 0;
 		switch (note) {
 					case 'H':  i = 2;
