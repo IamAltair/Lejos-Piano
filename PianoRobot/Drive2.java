@@ -180,19 +180,19 @@ class Tangenter {
 	}
 
 	public void fingeringH(double lengde) throws Exception {
-		Motor.C.rotate(90);
+		Motor.C.rotate(-45);
 		c = mpb*lengde;
 		long a = (long) c;
 		Thread.sleep(a);
-		Motor.C.rotate(-90);
+		Motor.C.rotate(45);
 	}
 
 	public void fingeringV(double lengde) throws Exception {
-		Motor.D.rotate(90);
+		Motor.D.rotate(45);
 		c = mpb*lengde;
 		long a = (long) c;
 		Thread.sleep(a);
-		Motor.D.rotate(-90);
+		Motor.D.rotate(-45);
 	}
 
 	public void bevegTilAvstand(char note, int oktav, boolean skarp) {
@@ -208,16 +208,16 @@ class Tangenter {
 		if(vei>= a) {
 			while(vei>=a){
 				a = uss.getUltraSample();
-				Motor.A.forward();
-				Motor.B.backward();
+				Motor.A.backward();
+				Motor.B.forward();
 			}
 		}
 
 		else {
 			while(vei<=a){
 				a = uss.getUltraSample();
-				Motor.A.backward();
-				Motor.B.forward();
+				Motor.A.forward();
+				Motor.B.backward();
 			}
 		}
 
