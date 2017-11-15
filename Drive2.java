@@ -204,12 +204,14 @@ public class Drive2
 {
 	public static void main(String[] args) throws Exception{
 		System.out.println("hey mama");
-	/*	Tangenter jens = new Tangenter(43, 90, 1);
+		Thread.sleep(10000);
+
+		Tangenter jens = new Tangenter(43, 90, 1);
 		Ultrasonic jens1 = new Ultrasonic(SensorPort.S1);
 		float minimum = 0.04000003f;
 		float maksimum = 0.543f;
 
-	/*	jens.ikkeFallAv(minimum,maksimum);
+		jens.ikkeFallAv(minimum,maksimum);
 
 		System.out.println("hei");
 
