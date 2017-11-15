@@ -43,12 +43,6 @@ class Tangenter {
 	private long a = 0;
 	private double c = 0;
 
-
-	Port port = LocalEV3.get().getPort("S1");
-	SensorModes sensor = new EV3UltrasonicSensor(port);
-	SampleProvider distance = sensor.getMode("Distance");
-	float[] sample = new float[distance.sampleSize()];
-
 	public Tangenter(double lengde, double bpm, double standarNote) {
 		this.bpm = bpm;
 		this.lengdeCM = lengdeCM;
@@ -66,8 +60,13 @@ class Tangenter {
 	}
 
 		public float getUltraSample() {
+			Port port = LocalEV3.get().getPort("S1");
+			SensorModes sensor = new EV3UltrasonicSensor(port);
+			SampleProvider distance = sensor.getMode("Distance");
+			float[] sample = new float[distance.sampleSize()];
 			distance.fetchSample(sample, 0);
 			return sample[0];
+			sensor.close();
 		}
 
 		/*public void gayShit() {Brick brick = BrickFinder.getDefault();
@@ -195,7 +194,6 @@ class Tangenter {
 		}
 		return i;
 	}
-	sensor.close();
 }
 
 
@@ -206,7 +204,7 @@ public class Drive2
 
 
 
-		System.out.println("hei p� dei");
+		System.out.println("hei paa dei");
 
 /*		Port port = LocalEV3.get().getPort("S1");
 		SensorModes sensor = new EV3UltrasonicSensor(port);
