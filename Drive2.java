@@ -76,7 +76,7 @@ class Tangenter {
 	double i = 0;
 	double lengdeCM;
 	double vei = 0;
-	Ultrasonic ultra = new Ultrasonic(SensorPort.S1);
+	Ultrasonic ultra = new Ultrasonic(SensorPort.S4);
 	double v = 0;
 	double h = 0;
 	long a = 0;
