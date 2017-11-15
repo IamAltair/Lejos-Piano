@@ -203,12 +203,13 @@ class Tangenter {
 public class Drive2
 {
 	public static void main(String[] args) throws Exception{
-		Tangenter jens = new Tangenter(43, 90, 1);
+		System.out.println("hey mama");
+	/*	Tangenter jens = new Tangenter(43, 90, 1);
 		Ultrasonic jens1 = new Ultrasonic(SensorPort.S1);
-		float minimum = 0.312f;
+		float minimum = 0.04000003f;
 		float maksimum = 0.543f;
 
-		jens.ikkeFallAv(minimum,maksimum);
+	/*	jens.ikkeFallAv(minimum,maksimum);
 
 		System.out.println("hei");
 
@@ -222,9 +223,10 @@ public class Drive2
 		jens.spillNote('D',2,false, 0.25);
 		System.out.println("playing E2");
 		Thread.sleep(1000);
-		jens.spillNote('E', 2 ,false, 0.25);*/
+		jens.spillNote('E', 2 ,false, 0.25);
 		System.out.println("Sucses!!!");
 		Thread.sleep(10000);
+		*/
 	}
 
 }
