@@ -203,8 +203,13 @@ public class Drive2
 
 
 
-
 		System.out.println("hei paa dei");
+
+
+<<<<<<< HEAD
+		System.out.println("hei paa dei");
+=======
+>>>>>>> 1b970cdfab77be7817fb89fa4bd1990d57eb2f89
 
 /*		Port port = LocalEV3.get().getPort("S1");
 		SensorModes sensor = new EV3UltrasonicSensor(port);
