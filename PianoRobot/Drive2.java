@@ -134,19 +134,6 @@ import lejos.*;
 		ultraLeser.fetchSample(ultraSample, 0);
 		return ultraSample[0];
 	}
-
-
-	public boolean ikkeFall(float min, float max){
-		ultraLeser.fetchSample(ultraSample, 0);
-		float distance = ultraSample[0];
-
-		if(distance <= min || max >= distance){
-			return true;
-		}else {
-			return false;
-		}
-	}
-
 }
 
 
