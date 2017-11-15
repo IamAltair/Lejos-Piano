@@ -149,6 +149,8 @@ class Tangenter {
 	private double h = 0;
 	private long a = 0;
 	private double c = 0;
+	private double s = 0;
+	private double b = 0;
 
 	private Ultrasonic uss = new Ultrasonic(SensorPort.S4);
 
@@ -199,7 +201,13 @@ class Tangenter {
 		v =  finnVeiV(note, oktav, skarp);
 		h = finnVeiH(note, oktav, skarp);
 
-		if(v >= h) {
+		s = v - uss.getUltraSample();
+		b = h - uss.getUltraSample();
+
+		s = Math.abs(s);
+		b = Math.abs(b);
+
+		if(s >= b) {
 			vei = h;
 			} else {vei = v;}
 
@@ -257,27 +265,29 @@ class Tangenter {
 	}
 
 	public double finnVeiH(char note, int oktav, boolean skarp) { // Finner vei basert p Hre offset
-		return lengdeCM/22*noteTilVerdi(note, oktav, skarp)+18+5;
+		return lengdeCM/22*noteTilVerdi(note, oktav, skarp)+17		+5;
 	}
 
 	public double noteTilVerdi(char note, int oktav, boolean skarp) { // Gjr note om til verdi
 		i = 0;
 		switch (note) {
-					case 'H':  i = 2;
+					case 'C':  i = 1;
 							 break;
-					case 'C':  i = 3;
+					case 'D':  i=2;
 							 break;
-					case 'D':  i=4;
+					case 'E':  i=3;
 							 break;
-					case 'E':  i=5;
+					case 'F':  i=4;
 							 break;
-					case 'F':  i=6;
+					case 'G':  i = 5;
+							 break;
+					case 'A':  i = 6;
 							 break;
 					default: i=7;
 							break;
 		}
-		i = i*oktav;
-		if (skarp = true || i <= 37) {
+		i = i+(oktav-1);
+		if (skarp = true && i < 22) {
 			i += 0.5;
 		}
 		return i;
