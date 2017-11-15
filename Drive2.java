@@ -11,6 +11,38 @@ import java.io.FileInputStream;
 import lejos.hardware.sensor.*;
 import lejos.hardware.port.*;
 import lejos.robotics.SampleProvider;
+import lejos.hardware.motor.*;
+import lejos.hardware.sensor.NXTLightSensor;
+import lejos.hardware.*;
+import lejos.hardware.port.Port;
+import lejos.robotics.SampleProvider;
+import lejos.hardware.ev3.LocalEV3;
+import lejos.hardware.Button;
+import lejos.hardware.sensor.EV3UltrasonicSensor;
+import lejos.hardware.motor.*;
+import lejos.hardware.lcd.*;
+import lejos.hardware.sensor.EV3TouchSensor;
+import lejos.hardware.sensor.EV3ColorSensor;
+import lejos.hardware.sensor.EV3UltrasonicSensor;
+import lejos.hardware.sensor.EV3GyroSensor;
+import lejos.hardware.sensor.NXTTouchSensor;
+import lejos.hardware.sensor.NXTLightSensor;
+import lejos.hardware.sensor.NXTColorSensor;
+import lejos.hardware.sensor.NXTSoundSensor;
+import lejos.hardware.sensor.NXTUltrasonicSensor;
+import lejos.hardware.port.Port;
+import lejos.hardware.Brick;
+import lejos.hardware.BrickFinder;
+import lejos.hardware.ev3.EV3;
+import lejos.hardware.Keys;
+import lejos.hardware.sensor.SensorModes;
+import lejos.robotics.SampleProvider;
+import lejos.hardware.sensor.*;
+import lejos.hardware.Sound;
+import lejos.utility.Delay;
+import lejos.hardware.ev3.LocalEV3;
+import java.io.File;
+import java.io.FileInputStream;
 
 
  class Ultrasonic {
@@ -24,7 +56,7 @@ import lejos.robotics.SampleProvider;
 		sensor = new EV3UltrasonicSensor(port);
 		ultraLeser = sensor.getMode("Distance");
 		ultraSample = new float [ultraLeser.sampleSize()];
-    sensor.close();
+
 	}
 
 	public float getUltraSample() {
@@ -212,9 +244,10 @@ public class Drive2
 		float minimum = 0.04000003f;
 		float maksimum = 0.543f;
 
-		jens.ikkeFallAv(minimum,maksimum);
+		//jens.ikkeFallAv(minimum,maksimum);
 
 		System.out.println("hei");
+		Thread.sleep(9000);
 
 		// float a = jens1.getUltraSample();
 		// System.out.println(a);
