@@ -208,7 +208,7 @@ public class Drive2
 		Thread.sleep(10000);
 
 		Tangenter jens = new Tangenter(43, 90, 1);
-		Ultrasonic jens1 = new Ultrasonic(SensorPort.S1);
+		// Ultrasonic jens1 = new Ultrasonic(SensorPort.S1);
 		float minimum = 0.04000003f;
 		float maksimum = 0.543f;
 
@@ -216,8 +216,8 @@ public class Drive2
 
 		System.out.println("hei");
 
-		float a = jens1.getUltraSample();
-		System.out.println(a);
+		// float a = jens1.getUltraSample();
+		// System.out.println(a);
 		/*System.out.println("playing C2");
 		Thread.sleep(1000);
 		jens.spillNote('C',2,false, 0.25);
