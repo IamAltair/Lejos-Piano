@@ -65,16 +65,7 @@ import java.io.FileInputStream;
 	}
 
 
-	public boolean ikkeFall(float min, float max){
-		ultraLeser.fetchSample(ultraSample, 0);
-		float distance = ultraSample[0];
 
-		if(distance <= min || max >= distance){
-			return true;
-		}else {
-			return false;
-		}
-	}
 
 }
 
@@ -137,18 +128,11 @@ class Tangenter {
 		Motor.D.rotateTo(100);
 	}
 
-	public void ikkeFallAv(float min, float max){
-	if(ultra.ikkeFall(min, max)){
-				Motor.A.forward();
-				Motor.B.backward();
-	}else{
-				Motor.A.backward();
-				Motor.B.forward();
-	}
 
 
 
-	}
+
+
 
 	public void bevegTilAvstand(char note, int oktav, boolean skarp) {
 		if(finnVeiV(note, oktav, skarp) >= finnVeiH(note, oktav, skarp)) {
@@ -240,7 +224,7 @@ public class Drive2
 		Thread.sleep(1000);
 
 		Ultrasonic uss = new Ultrasonic(SensorPort.S4);
-
+		System.out.println(uss.getUltraSample());
 
 		System.out.println("hei");
 		Thread.sleep(9000);
