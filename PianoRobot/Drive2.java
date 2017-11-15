@@ -158,10 +158,10 @@ class Tangenter {
 		this.bpm = bpm;
 		this.lengdeCM = lengdeCM;
 
-		Motor.A.setSpeed(150);
-		Motor.B.setSpeed(150);
-		Motor.C.setSpeed(150);
-		Motor.D.setSpeed(150);
+		Motor.A.setSpeed(50);
+		Motor.B.setSpeed(50);
+		Motor.C.setSpeed(50);
+		Motor.D.setSpeed(50);
 		mpb = 60/bpm*standarNote*4*1000;
 	}
 
@@ -182,11 +182,11 @@ class Tangenter {
 	}
 
 	public void fingeringH(double lengde) throws Exception {
-		Motor.C.rotate(-45);
+		Motor.C.rotate(45);
 		c = mpb*lengde;
 		long a = (long) c;
 		Thread.sleep(a);
-		Motor.C.rotate(45);
+		Motor.D.rotate(-45);
 	}
 
 	public void fingeringV(double lengde) throws Exception {
@@ -194,7 +194,7 @@ class Tangenter {
 		c = mpb*lengde;
 		long a = (long) c;
 		Thread.sleep(a);
-		Motor.D.rotate(-45);
+		Motor.C.rotate(-45);
 	}
 
 	public void bevegTilAvstand(char note, int oktav, boolean skarp) {
@@ -302,6 +302,8 @@ public class Drive2
 
 
 		System.out.println("hei paa dei");
+		Ultrasonic uss = new Ultrasonic(SensorPort.S4);
+		System.out.println(uss.getUltraSample());
 
 		System.out.println("Getting some ultrasounds");
 		Thread.sleep(1000);
@@ -312,9 +314,19 @@ public class Drive2
 		jens.fingeringV(1);
 		System.out.println("Finnvei");
 		Thread.sleep(2000);
-		System.out.println(jens.finnVeiV('B',3,true) + "Venstre");
+		System.out.println(jens.noteTilVerdi('E',3,true) + " C3");
 		Thread.sleep(1000);
-		System.out.println(jens.finnVeiH('A',2,false) + "Hoyre");
+		System.out.println(jens.noteTilVerdi('A',2,false) + " A2");
+		Thread.sleep(2000);
+		System.out.println("Finnvei");
+		Thread.sleep(2000);
+		System.out.println(jens.finnVeiH('E',3,true) + " E3 Hoyre");
+		Thread.sleep(1000);
+		System.out.println(jens.finnVeiH('A',2,false) + " A2 Hoyre");
+		Thread.sleep(1000);
+		System.out.println(jens.finnVeiV('E',3,true) + " E3 Venstre");
+		Thread.sleep(1000);
+		System.out.println(jens.finnVeiV('A',2,false) + " A2 Venstre");
 		Thread.sleep(2000);
 		System.out.println("Spill noter");
 		Thread.sleep(2000);
