@@ -132,7 +132,7 @@ import lejos.*;
 
 	public float getUltraSample() {
 		ultraLeser.fetchSample(ultraSample, 0);
-		return ultraSample[0];
+		return ultraSample[0]*100;
 	}
 }
 
@@ -161,21 +161,7 @@ class Tangenter {
 		Motor.C.setSpeed(900);
 		Motor.D.setSpeed(900);
 		mpb = 60/bpm*standarNote*4*1000;
-		/*Port port = LocalEV3.get().getPort("S1");
-		SensorModes sensor = new EV3UltrasonicSensor(port);
-		SampleProvider distance = sensor.getMode("Distance");
-		float[] sample = new float[distance.sampleSize()];*/
 	}
-		/*public void gayShit() {Brick brick = BrickFinder.getDefault();
-			EV3 ev3 = (EV3) BrickFinder.getLocal();
-			Port s1 = brick.getPort("S1");
-			EV3UltrasonicSensor ultraSensor1 = new EV3UltrasonicSensor(s1);
-			SampleProvider ultraLeser1 = ultraSensor1.getDistanceMode();
-			float[] ultraSample1 = new float [ultraLeser1.sampleSize()];
-			ultraLeser1.fetchSample(ultraSample, 0);
-			System.out.println(ultraSample1[0]);
-
-	}*/
 
 	public void spillNote(char note, int oktav, boolean skarp, double lengde) throws Exception {
 		bevegTilAvstand(note, oktav, skarp);
@@ -189,8 +175,8 @@ class Tangenter {
 
 	public void fingering(double lengde) throws Exception {
 		if (v<h) {
-			fingeringH(lengde);
-		} else {fingeringV(lengde);}
+			fingeringV(lengde);
+		} else {fingeringH(lengde);}
 	}
 
 	public void fingeringH(double lengde) throws Exception {
@@ -198,7 +184,7 @@ class Tangenter {
 		c = mpb*lengde;
 		long a = (long) c;
 		Thread.sleep(a);
-		Motor.C.rotateTo(100);
+		Motor.C.rotate(-90);
 	}
 
 	public void fingeringV(double lengde) throws Exception {
@@ -206,18 +192,20 @@ class Tangenter {
 		c = mpb*lengde;
 		long a = (long) c;
 		Thread.sleep(a);
-		Motor.D.rotateTo(100);
+		Motor.D.rotate(-90);
 	}
 
 	public void bevegTilAvstand(char note, int oktav, boolean skarp) {
-		if(finnVeiV(note, oktav, skarp) >= finnVeiH(note, oktav, skarp)) {
-			vei = finnVeiV(note, oktav, skarp);
-			} else {vei = finnVeiH(note, oktav, skarp);}
+		v =  finnVeiV(note, oktav, skarp);
+		h = finnVeiH(note, oktav, skarp);
+
+		if(v >= h) {
+			vei = h;
+			} else {vei = v;}
 			uss.getUltraSample();
 
 		if(vei>= uss.getUltraSample()) {
 			while(vei>=uss.getUltraSample()){
-				uss.getUltraSample();
 				Motor.A.forward();
 				Motor.B.backward();
 			}
@@ -225,7 +213,6 @@ class Tangenter {
 
 		else {
 			while(vei<=uss.getUltraSample()){
-				uss.getUltraSample();
 				Motor.A.backward();
 				Motor.B.forward();
 			}
@@ -233,17 +220,16 @@ class Tangenter {
 
 	}
 
-	public void bevegTilAvstandOpt(double noteOpt) {
+	public void bevegTilAvstandOpt(double noteOpt) { // Hvilken vei som er minst g kjører den
 				uss.getUltraSample();
 				v = noteOpt+5;
-				h = noteOpt-5;
+				h = noteOpt+18;
 				if(v>=h) {
-					vei = v;
-				} else {vei = h;}
+					vei = h;
+				} else {vei = v;}
 
 				if(vei>=uss.getUltraSample()) {
 					while(vei>=uss.getUltraSample()){
-						uss.getUltraSample();
 						Motor.A.forward();
 						Motor.B.backward();
 					}
@@ -251,7 +237,6 @@ class Tangenter {
 
 				else {
 					while(vei<=uss.getUltraSample()){
-						uss.getUltraSample();
 						Motor.A.backward();
 						Motor.B.forward();
 					}
@@ -261,15 +246,15 @@ class Tangenter {
 
 
 
-	public double finnVeiV(char note, int oktav, boolean skarp) {
-		return 36/lengdeCM*noteTilVerdi(note, oktav, skarp)+1+5;
+	public double finnVeiV(char note, int oktav, boolean skarp) { // Finner vei basert på Venstre Offset
+		return lengdeCM/22*noteTilVerdi(note, oktav, skarp)+1+5;
 	}
 
-	public double finnVeiH(char note, int oktav, boolean skarp) {
-		return 37/lengdeCM*noteTilVerdi(note, oktav, skarp)+18+5;
+	public double finnVeiH(char note, int oktav, boolean skarp) { // Finner vei basert på Høre offset
+		return lengdeCM/22*noteTilVerdi(note, oktav, skarp)+18+5;
 	}
 
-	public double noteTilVerdi(char note, int oktav, boolean skarp) {
+	public double noteTilVerdi(char note, int oktav, boolean skarp) { // Gjør note om til verdi
 		i = 0;
 		switch (note) {
 					case 'H':  i = 2;
@@ -301,13 +286,6 @@ public class Drive2
 
 
 		System.out.println("hei paa dei");
-
-/*		Port port = LocalEV3.get().getPort("S1");
-		SensorModes sensor = new EV3UltrasonicSensor(port);
-		SampleProvider distance = sensor.getMode("Distance");
-		float[] sample = new float[distance.sampleSize()];
-		distance.fetchSample(sample, 0);
-		System.out.println(sample[0] + "hei");*/
 
 		System.out.println("Getting some ultrasounds");
 		Thread.sleep(1000);
