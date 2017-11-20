@@ -216,29 +216,29 @@ class Tangenter {
 			float a = uss.getUltraSample();
 
 		if(vei> a) {
-			while(vei>a){
+			while(a<vei){
 				a = uss.getUltraSample();
-				Motor.A.backward();
-				Motor.B.forward();
+				Motor.B.backward();
+				Motor.A.forward();
 			}
 		}
 
 		else {
-			while(vei<a){
+			while(a>vei){
 				a = uss.getUltraSample();
-				Motor.A.forward();
-				Motor.B.backward();
+				Motor.B.forward();
+				Motor.A.backward();
 			}
 		}
-		Motor.A.stop();
-		Motor.B.stop();
+		Motor.A.stop(true);
+		Motor.B.stop(true);
 
 	}
 
 	public void bevegTilAvstandOpt(double noteOpt) { // Hvilken vei som er minst g kjrer den
 				uss.getUltraSample();
 				v = noteOpt;
-				h = noteOpt+17;
+				h = noteOpt;
 				float a = uss.getUltraSample();
 				if(v>=h) {
 					vei = h;
@@ -269,7 +269,7 @@ class Tangenter {
 	}
 
 	public double finnVeiH(char note, int oktav, boolean skarp) { // Finner vei basert p Hre offset
-		return lengdeCM/22*noteTilVerdi(note, oktav, skarp)+17+5;
+		return lengdeCM/22*noteTilVerdi(note, oktav, skarp)-17+5;
 	}
 
 	public double noteTilVerdi(char note, int oktav, boolean skarp) { // Gjr note om til verdi
