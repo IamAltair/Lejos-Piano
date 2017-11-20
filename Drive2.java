@@ -129,14 +129,21 @@ public class Drive2
 		Thread.sleep(300);
 		Motor.C.forward();
 		Thread.sleep(380);
-		Motor.C.stop();
 
+		Motor.C.stop();
+		while(uss.getUltraSample() !=0.23){
 		if(uss.getUltraSample()< 0.23){
 			Motor.A.setSpeed(80);
 			Motor.B.setSpeed(80);
 			Motor.A.forward();
 			Motor.B.backward();
+		} else if (uss.getUltraSample() > 0.23){
+			System.out.println("Break");
+			break;
+
 		}
+			Motor.A.stop();
+			Motor.B.stop();
 		Motor.C.backward();
 		Thread.sleep(300);
 		Motor.C.forward();
@@ -144,7 +151,7 @@ public class Drive2
 		Motor.C.stop();
 
 
-
+}
 
 		System.out.println("Knapp trykket");
 
