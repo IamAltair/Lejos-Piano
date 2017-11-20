@@ -122,38 +122,118 @@ public class Drive2
 		}
 		}
 
-		Motor.A.stop();
+		Motor.A.stop(true);
 		Motor.B.stop();
 
-		Motor.C.backward();
-		Thread.sleep(300);
-		Motor.C.forward();
-		Thread.sleep(380);
+		Motor.C.rotate(-45);
+		Motor.C.rotate(45);
 
-		Motor.C.stop();
 
 		while(uss.getUltraSample() !=0.23){
-		if(uss.getUltraSample()< 0.23){
-
-			Motor.A.forward();
-			Motor.B.backward();
-		} else if (uss.getUltraSample() > 0.23){
-			Motor.A.stop();
-			Motor.B.stop();
-			System.out.println("Break");
-			break;
+			if(uss.getUltraSample()< 0.23){
+				Motor.A.forward();
+				Motor.B.backward();
+			} else if (uss.getUltraSample() > 0.23){
+				System.out.println("Break");
+				break;
+			}
 		}
+			Motor.B.stop(true);
+			Motor.A.stop();
 
-		Motor.C.backward();
-		Thread.sleep(300);
-		Motor.C.forward();
-		Thread.sleep(380);
-		Motor.C.stop();
+		Motor.C.rotate(-45);
+		Motor.C.rotate(45);
+
+		while(uss.getUltraSample() !=0.255){
+			if(uss.getUltraSample()< 0.255){
+				Motor.A.forward();
+				Motor.B.backward();
+			} else if (uss.getUltraSample() > 0.255){
+				System.out.println("Break");
+				break;
+			}
+		}
+			Motor.B.stop(true);
+			Motor.A.stop();
+
+		Motor.C.rotate(-45);
+		Motor.C.rotate(45);
+
+		while(uss.getUltraSample() !=0.27){
+			if(uss.getUltraSample()< 0.27){
+				Motor.A.forward();
+				Motor.B.backward();
+			} else if (uss.getUltraSample() > 0.27){
+				System.out.println("Break");
+				break;
+			}
+		}
+			Motor.B.stop(true);
+			Motor.A.stop();
+
+		Motor.C.rotate(-45);
+		Motor.C.rotate(45);
+
+		while(uss.getUltraSample() !=0.2955){
+			if(uss.getUltraSample()< 0.2955){
+				Motor.A.forward();
+				Motor.B.backward();
+			} else if (uss.getUltraSample() > 0.2955){
+				System.out.println("Break");
+				break;
+			}
+		}
+			Motor.B.stop(true);
+			Motor.A.stop();
+
+		Motor.C.rotate(-45);
+		Motor.C.rotate(45);
+		Motor.C.rotate(-45);
+		Motor.C.rotate(45);
+
+		while(uss.getUltraSample() !=0.30){
+			if(uss.getUltraSample()< 0.30){
+				Motor.A.forward();
+				Motor.B.backward();
+			} else if (uss.getUltraSample() > 0.30){
+				System.out.println("Break");
+				break;
+			}
+		}
+			Motor.B.stop(true);
+			Motor.A.stop();
+
+		Motor.C.rotate(-45);
+		Motor.C.rotate(45);
+		Motor.C.rotate(-45);
+		Motor.C.rotate(45);
+		Motor.C.rotate(-45);
+		Motor.C.rotate(45);
+		Motor.C.rotate(-45);
+		Motor.C.rotate(45);
+
+		while(uss.getUltraSample() !=0.2955){
+			if(uss.getUltraSample() > 0.2955){
+				Motor.A.backward();
+				Motor.B.forward();
+			} else if (uss.getUltraSample() > 0.2955){
+				System.out.println("Break");
+				break;
+			}
+		}
+			Motor.B.stop(true);
+			Motor.A.stop();
+
+		Motor.C.rotate(-45);
+		Motor.C.rotate(45);
+		Motor.C.rotate(-45);
+		Motor.C.rotate(45);
 
 
-}
 
-		System.out.println("Knapp trykket");
+
+
+
 
 
 
