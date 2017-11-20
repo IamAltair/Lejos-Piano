@@ -131,19 +131,19 @@ public class Drive2
 		Thread.sleep(380);
 
 		Motor.C.stop();
+
 		while(uss.getUltraSample() !=0.23){
 		if(uss.getUltraSample()< 0.23){
-			Motor.A.setSpeed(80);
-			Motor.B.setSpeed(80);
+
 			Motor.A.forward();
 			Motor.B.backward();
 		} else if (uss.getUltraSample() > 0.23){
-			System.out.println("Break");
-			break;
-
-		}
 			Motor.A.stop();
 			Motor.B.stop();
+			System.out.println("Break");
+			break;
+		}
+
 		Motor.C.backward();
 		Thread.sleep(300);
 		Motor.C.forward();
