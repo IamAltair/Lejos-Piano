@@ -215,8 +215,8 @@ class Tangenter {
 
 			float a = uss.getUltraSample();
 
-		if(vei>= a) {
-			while(vei>=a){
+		if(vei> a) {
+			while(vei>a){
 				a = uss.getUltraSample();
 				Motor.A.backward();
 				Motor.B.forward();
@@ -224,12 +224,14 @@ class Tangenter {
 		}
 
 		else {
-			while(vei<=a){
+			while(vei<a){
 				a = uss.getUltraSample();
 				Motor.A.forward();
 				Motor.B.backward();
 			}
 		}
+		Motor.A.stop();
+		Motor.B.stop();
 
 	}
 
