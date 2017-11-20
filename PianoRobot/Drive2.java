@@ -154,7 +154,7 @@ class Tangenter {
 
 	private Ultrasonic uss = new Ultrasonic(SensorPort.S4);
 
-	public Tangenter(double lengde, double bpm, double standarNote) {
+	public Tangenter(double lengde) {
 		this.bpm = bpm;
 		this.lengdeCM = lengdeCM;
 
@@ -162,7 +162,6 @@ class Tangenter {
 		Motor.B.setSpeed(50);
 		Motor.C.setSpeed(50);
 		Motor.D.setSpeed(50);
-		mpb = 60/bpm*standarNote*4*1000;
 	}
 
 	public void spillNote(char note, int oktav, boolean skarp, double lengde) throws Exception {
@@ -170,6 +169,7 @@ class Tangenter {
 		fingering(lengde);
 	}
 
+//mkay
 	public void spillNoteOpt(double lengde, double noteOpt) throws Exception {
 		bevegTilAvstandOpt(noteOpt);
 		fingering(lengde);
@@ -183,7 +183,7 @@ class Tangenter {
 
 	public void fingeringH(double lengde) throws Exception {
 		Motor.C.rotate(45);
-		c = mpb*lengde;
+		c = lengde*6/9*1000*4;
 		long a = (long) c;
 		Thread.sleep(a);
 		Motor.D.rotate(-45);
@@ -191,13 +191,15 @@ class Tangenter {
 
 	public void fingeringV(double lengde) throws Exception {
 		Motor.D.rotate(45);
-		c = mpb*lengde;
+		c = lengde*6/9*1000*4;
 		long a = (long) c;
 		Thread.sleep(a);
 		Motor.C.rotate(-45);
 	}
+// mkay
 
 	public void bevegTilAvstand(char note, int oktav, boolean skarp) {
+
 		v =  finnVeiV(note, oktav, skarp);
 		h = finnVeiH(note, oktav, skarp);
 
@@ -233,8 +235,8 @@ class Tangenter {
 
 	public void bevegTilAvstandOpt(double noteOpt) { // Hvilken vei som er minst g kjrer den
 				uss.getUltraSample();
-				v = noteOpt+5;
-				h = noteOpt+18;
+				v = noteOpt;
+				h = noteOpt+17;
 				float a = uss.getUltraSample();
 				if(v>=h) {
 					vei = h;
@@ -261,11 +263,11 @@ class Tangenter {
 
 
 	public double finnVeiV(char note, int oktav, boolean skarp) { // Finner vei basert p Venstre Offset
-		return lengdeCM/22*noteTilVerdi(note, oktav, skarp)+1+5;
+		return lengdeCM/22*noteTilVerdi(note, oktav, skarp)+5;
 	}
 
 	public double finnVeiH(char note, int oktav, boolean skarp) { // Finner vei basert p Hre offset
-		return lengdeCM/22*noteTilVerdi(note, oktav, skarp)+17		+5;
+		return lengdeCM/22*noteTilVerdi(note, oktav, skarp)+17+5;
 	}
 
 	public double noteTilVerdi(char note, int oktav, boolean skarp) { // Gjr note om til verdi
@@ -302,30 +304,11 @@ public class Drive2
 
 
 		System.out.println("hei paa dei");
-		Tangenter jens = new Tangenter(43, 90, 1);
-		System.out.println("Fingring");
-		Thread.sleep(2000);
-		jens.fingeringH(1/4);
-		jens.fingeringV(1);
-		System.out.println("Finnvei");
-		Thread.sleep(2000);
-		System.out.println(jens.noteTilVerdi('E',3,true) + " C3");
-		Thread.sleep(1000);
-		System.out.println(jens.noteTilVerdi('A',2,false) + " A2");
-		Thread.sleep(2000);
-		System.out.println("Finnvei");
-		Thread.sleep(2000);
-		System.out.println(jens.finnVeiH('E',3,true) + " E3 Hoyre");
-		Thread.sleep(1000);
-		System.out.println(jens.finnVeiH('A',2,false) + " A2 Hoyre");
-		Thread.sleep(1000);
-		System.out.println(jens.finnVeiV('E',3,true) + " E3 Venstre");
-		Thread.sleep(1000);
-		System.out.println(jens.finnVeiV('A',2,false) + " A2 Venstre");
-		Thread.sleep(2000);
+		Tangenter jens = new Tangenter(43);
 		System.out.println("Spill noter");
+		jens.bevegTilAvstand('A',2,false);
 		Thread.sleep(2000);
-		jens.spillNote('A',2,false,1/4);
+		jens.bevegTilAvstand('H',2,false);
 
 	}
 
