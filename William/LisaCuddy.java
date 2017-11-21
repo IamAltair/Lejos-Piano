@@ -93,7 +93,7 @@ import lejos.*;
 	}
 }
 
-public class Drive2
+public class LisaCuddy
 {
 	public static void main(String[] args) throws Exception{
 		Ultrasonic uss = new Ultrasonic(SensorPort.S4);
