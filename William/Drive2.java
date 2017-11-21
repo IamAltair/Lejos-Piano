@@ -222,10 +222,10 @@ public class Drive2
 		}
 
 		//KNAPP 2
-		while(uss.getUltraSample() !=0.259){
-			if(uss.getUltraSample()> 0.259){
+		while(uss.getUltraSample() !=0.26){
+			if(uss.getUltraSample()> 0.26){
 				Motor.B.forward();
-			} else if (uss.getUltraSample() < 0.259){
+			} else if (uss.getUltraSample() < 0.26){
 				System.out.println("Break");
 				break;
 			}
@@ -253,10 +253,10 @@ public class Drive2
 		Motor.C.rotate(45);
 		}
 		//KNAPP 0
-		while(uss.getUltraSample() !=0.21){
-			if(uss.getUltraSample()>0.21){
+		while(uss.getUltraSample() !=0.215){
+			if(uss.getUltraSample()>0.215){
 				Motor.B.forward();
-			} else if (uss.getUltraSample() < 0.21){
+			} else if (uss.getUltraSample() < 0.215){
 				System.out.println("Break");
 				break;
 			}
