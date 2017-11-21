@@ -154,7 +154,7 @@ class Tangenter {
 
 	private Ultrasonic uss = new Ultrasonic(SensorPort.S4);
 
-	public Tangenter(double lengde) {
+	public Tangenter(double lengdeCM) {
 		this.bpm = bpm;
 		this.lengdeCM = lengdeCM;
 
@@ -250,7 +250,7 @@ class Tangenter {
 					default: i=7;
 							break;
 		}
-		i = i+(oktav-1);
+		i = i+(oktav-1)*7;
 		if (skarp = true && i < 22) {
 			i += 0.5;
 		}
@@ -267,7 +267,7 @@ public class Drive2
 
 
 		System.out.println("hei paa dei");
-		Tangenter jens = new Tangenter(43);
+		Tangenter jens = new Tangenter(44);
 		System.out.println("Spill noter");
 		jens.bevegTilAvstand('A',2,false);
 		Thread.sleep(2000);
