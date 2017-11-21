@@ -205,11 +205,11 @@ public class Drive2
 
 
 		//KNAPP 3
-		while(uss.getUltraSample() !=0.2755){
-			if(uss.getUltraSample()> 0.2755){
+		while(uss.getUltraSample() !=0.267){
+			if(uss.getUltraSample()> 0.267){
 				Motor.A.backward();
 				Motor.B.forward();
-			} else if (uss.getUltraSample() < 0.2755){
+			} else if (uss.getUltraSample() < 0.267){
 				System.out.println("Break");
 				break;
 			}
