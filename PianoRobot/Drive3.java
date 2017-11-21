@@ -261,7 +261,7 @@ class Tangenter {
 }
 
 
-public class Drive2
+public class Drive3
 {
 	public static void main(String[] args) throws Exception{
 
