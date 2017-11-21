@@ -178,7 +178,7 @@ class Tangenter {
 	}
 
 	public void fingeringH(double lengde) throws Exception {
-		Motor.C.rotate(-45);
+		Motor.D.rotate(-45);
 		c = lengde*6/9*1000*4;
 		long a = (long) c;
 		Thread.sleep(a);
@@ -186,7 +186,7 @@ class Tangenter {
 	}
 
 	public void fingeringV(double lengde) throws Exception {
-		Motor.D.rotate(-45);
+		Motor.C.rotate(-45);
 		c = lengde*6/9*1000*4;
 		long a = (long) c;
 		Thread.sleep(a);
