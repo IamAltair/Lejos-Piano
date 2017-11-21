@@ -145,10 +145,10 @@ public class LisaCuddy
 		Motor.C.rotate(-45);
 		Motor.C.rotate(45);
 		//KNAPP 3
-		while(uss.getUltraSample() !=0.275){
-			if(uss.getUltraSample()< 0.275){
+		while(uss.getUltraSample() !=0.27){
+			if(uss.getUltraSample()< 0.27){
 				Motor.B.backward();
-			} else if (uss.getUltraSample() > 0.275){
+			} else if (uss.getUltraSample() > 0.263){
 				System.out.println("Break");
 				break;
 			}
@@ -205,11 +205,11 @@ public class LisaCuddy
 
 
 		//KNAPP 3
-		while(uss.getUltraSample() !=0.267){
-			if(uss.getUltraSample()> 0.267){
+		while(uss.getUltraSample() !=0.27){
+			if(uss.getUltraSample()> 0.27){
 				Motor.A.backward();
 				Motor.B.forward();
-			} else if (uss.getUltraSample() < 0.267){
+			} else if (uss.getUltraSample() < 0.27){
 				System.out.println("Break");
 				break;
 			}
