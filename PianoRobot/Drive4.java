@@ -165,8 +165,12 @@ class Tangenter {
 	}
 
 	public void spillNote(char note, int oktav, boolean skarp, double lengde) throws Exception {
+		System.out.println("note = " + note + ", oktav = " +  oktav + " informasjon.");
 		bevegTilAvstand(note, oktav, skarp);
 		fingering(lengde);
+		System.out.println("note = " + note + ", oktav = " +  oktav + " informasjon END. ");
+		System.out.println();
+
 	}
 
 
@@ -178,6 +182,8 @@ class Tangenter {
 	}
 
 	public void fingeringH(double lengde) throws Exception {
+
+		System.out.println("tapp dat H");
 		Motor.D.rotate(-45);
 		c = lengde*6/9*1000*4;
 		long a = (long) c;
@@ -186,6 +192,8 @@ class Tangenter {
 	}
 
 	public void fingeringV(double lengde) throws Exception {
+
+		System.out.println("tapp dat V");
 		Motor.C.rotate(-45);
 		c = lengde*6/9*1000*4;
 		long a = (long) c;
@@ -202,13 +210,14 @@ class Tangenter {
 
 		if(Math.abs(a - v) >= Math.abs(a - h)) {
 			vei = h;
-			} else {vei = v;}
+			System.out.println("H");
+			} else {vei = v;
+		System.out.println("V");}
 
-		System.out.println(vei-a);
+		System.out.println("Vei - a = " + (vei-a));
 
-		if(vei-a>0) {
-			while(vei-a>0){
-				System.out.println(vei-a);
+		if(vei-a>=0) {
+			while(vei-a>=0){
 				a = uss.getUltraSample();
 				Motor.B.backward();
 				Motor.A.forward();
@@ -216,21 +225,21 @@ class Tangenter {
 		}
 
 		else {
-			while(vei-a<0){
-				System.out.println(vei-a);
+			while(vei-a<=0){
 				a = uss.getUltraSample();
 				Motor.B.forward();
 				Motor.A.backward();
 			}
 		}
+		System.out.println("Vei - a = " + (vei-a) + "Slut");
 		Motor.A.stop(true);
 		Motor.B.stop(true);
 
 	}
 
 	public double finnVei(char note, int oktav, boolean skarp) { // Finner vei basert p Hre offset
-		System.out.println((lengdeCM/22*noteTilVerdi(note, oktav, skarp))+5);
-		return (lengdeCM/22*noteTilVerdi(note, oktav, skarp))+5;
+		System.out.println("finnVei = " + (lengdeCM/22*noteTilVerdi(note, oktav, skarp))+5.0);
+		return (lengdeCM/22*noteTilVerdi(note, oktav, skarp))+5.0;
 	}
 
 	public double noteTilVerdi(char note, int oktav, boolean skarp) { // Gjr note om til verdi
@@ -252,16 +261,16 @@ class Tangenter {
 							break;
 		}
 		i = i+(oktav-1)*7;
-		if (skarp = true && i < 22) {
+		if (skarp == true) {
 			i += 0.5;
 		}
-		System.out.println(i);
+		System.out.println("note til verdi = " + i);
 		return i;
 	}
 }
 
 
-public class Drive3
+public class Drive4
 {
 	public static void main(String[] args) throws Exception{
 
