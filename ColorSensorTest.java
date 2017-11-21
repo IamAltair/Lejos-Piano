@@ -1,9 +1,11 @@
-package pack;
 
+
+import lejos.hardware.Button;
 import lejos.hardware.ev3.LocalEV3;
-import lejos.hardware.port.PORT;
+import lejos.hardware.port.Port;
 import lejos.hardware.sensor.EV3ColorSensor;
 import lejos.robotics.SampleProvider;
+import lejos.utility.Delay;
 
 public class ColorSensorTest {
 
@@ -11,22 +13,22 @@ public class ColorSensorTest {
   SampleProvider colorProvider;
   float[] colorSample;
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws Exception{
     new ColorSensorTest();
   }
 
-  public ColorSensorTest() {
-    port s1 = localEV3.get().getPort("S1");
-    colorSensor = new EV3ColorSensor(s1);
-    colorprovider = colorSensor.getRGBMode();
+  public ColorSensorTest()throws Exception {
+    Port s2 = LocalEV3.get().getPort("S2");
+    colorSensor = new EV3ColorSensor(s2);
+    colorProvider = colorSensor.getRedMode();
     colorSample = new float[colorProvider.sampleSize()];
 
-    while(Button.ESCSPE.isUp()) {
+    while(Button.ESCAPE.isUp()){
       colorProvider.fetchSample(colorSample, 0);
-      System.out.println("R" + colorSample[0]);
-      System.out.println("G" + colorSample[1]);
-      System.out.println("B" + colorSample[2]);
-      Delay.msDelay(250);
+      System.out.println("Fargeverdi: " + colorSample[0]);
+      // System.out.println("G" + colorSample[1]);
+      // System.out.println("B" + colorSample[2]);
+      Thread.sleep(250);
     }
 
     colorSensor.close();
