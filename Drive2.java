@@ -52,15 +52,6 @@ import lejos.hardware.ev3.LocalEV3;
 import lejos.hardware.Button;
 import lejos.hardware.sensor.EV3UltrasonicSensor;
 import lejos.hardware.motor.*;
-import lejos.hardware.lcd.*;
-import lejos.hardware.sensor.EV3TouchSensor;
-import lejos.hardware.sensor.EV3ColorSensor;
-import lejos.hardware.sensor.EV3UltrasonicSensor;
-import lejos.hardware.sensor.EV3GyroSensor;
-import lejos.hardware.sensor.NXTTouchSensor;
-import lejos.hardware.sensor.NXTLightSensor;
-import lejos.hardware.sensor.NXTColorSensor;
-import lejos.hardware.sensor.NXTSoundSensor;
 import lejos.hardware.sensor.NXTUltrasonicSensor;
 import lejos.hardware.port.Port;
 import lejos.hardware.Brick;
@@ -109,7 +100,7 @@ public class Drive2
 		Motor.A.setSpeed(80);
 		Motor.B.setSpeed(80);
 		Motor.D.setSpeed(200);
-
+		//KNAPP 0
 		while(uss.getUltraSample() != 0.205){
 
 		if(uss.getUltraSample() > 0.205){
@@ -128,7 +119,7 @@ public class Drive2
 		Motor.C.rotate(-45);
 		Motor.C.rotate(45);
 
-
+		//KNAPP 1
 		while(uss.getUltraSample() !=0.23){
 			if(uss.getUltraSample()< 0.23){
 				Motor.A.forward();
@@ -143,7 +134,7 @@ public class Drive2
 
 		Motor.C.rotate(-45);
 		Motor.C.rotate(45);
-
+		//KNAPP 2
 		while(uss.getUltraSample() !=0.255){
 			if(uss.getUltraSample()< 0.255){
 				Motor.A.forward();
@@ -158,7 +149,7 @@ public class Drive2
 
 		Motor.C.rotate(-45);
 		Motor.C.rotate(45);
-
+		//KNAPP 3
 		while(uss.getUltraSample() !=0.27){
 			if(uss.getUltraSample()< 0.27){
 				Motor.A.forward();
@@ -173,7 +164,7 @@ public class Drive2
 
 		Motor.C.rotate(-45);
 		Motor.C.rotate(45);
-
+		//KNAPP 4
 		while(uss.getUltraSample() !=0.2955){
 			if(uss.getUltraSample()< 0.2955){
 				Motor.A.forward();
@@ -190,12 +181,12 @@ public class Drive2
 		Motor.C.rotate(45);
 		Motor.C.rotate(-45);
 		Motor.C.rotate(45);
-
-		while(uss.getUltraSample() !=0.30){
-			if(uss.getUltraSample()< 0.30){
+		//KNAPP 5
+		while(uss.getUltraSample() !=0.32){
+			if(uss.getUltraSample()< 0.32){
 				Motor.A.forward();
 				Motor.B.backward();
-			} else if (uss.getUltraSample() > 0.30){
+			} else if (uss.getUltraSample() > 0.32){
 				System.out.println("Break");
 				break;
 			}
@@ -203,20 +194,16 @@ public class Drive2
 			Motor.B.stop(true);
 			Motor.A.stop();
 
+			for(int i = 0; i < 4; i++){
 		Motor.C.rotate(-45);
 		Motor.C.rotate(45);
-		Motor.C.rotate(-45);
-		Motor.C.rotate(45);
-		Motor.C.rotate(-45);
-		Motor.C.rotate(45);
-		Motor.C.rotate(-45);
-		Motor.C.rotate(45);
-
+			}
+		//KNAPP 4
 		while(uss.getUltraSample() !=0.2955){
 			if(uss.getUltraSample() > 0.2955){
 				Motor.A.backward();
 				Motor.B.forward();
-			} else if (uss.getUltraSample() > 0.2955){
+			} else if (uss.getUltraSample() < 0.2955){
 				System.out.println("Break");
 				break;
 			}
@@ -225,18 +212,79 @@ public class Drive2
 			Motor.A.stop();
 
 		Motor.C.rotate(-45);
+		Thread.sleep(200);
 		Motor.C.rotate(45);
+
+
+		//KNAPP 3
+		while(uss.getUltraSample() !=0.27){
+			if(uss.getUltraSample()> 0.27){
+				Motor.A.backward();
+				Motor.B.forward();
+			} else if (uss.getUltraSample() < 0.27){
+				System.out.println("Break");
+				break;
+			}
+		}
+		Motor.B.stop(true);
+		Motor.A.stop();
+
+		for(int i = 0; i < 4; i++){
+				Motor.C.rotate(-45);
+				Motor.C.rotate(45);
+		}
+
+		//KNAPP 2
+		while(uss.getUltraSample() !=0.255){
+			if(uss.getUltraSample()> 0.255){
+				Motor.A.backward();
+				Motor.B.forward();
+			} else if (uss.getUltraSample() < 0.255){
+				System.out.println("Break");
+				break;
+			}
+		}
+		Motor.B.stop(true);
+		Motor.A.stop();
+
+		for(int i = 0; i < 2; i++){
+			Motor.C.rotate(-45);
+			Motor.C.rotate(45);
+	}
+
+		//KNAPP 1
+		while(uss.getUltraSample() !=0.23){
+			if(uss.getUltraSample()< 0.23){
+				Motor.A.backward();
+				Motor.B.forward();
+			} else if (uss.getUltraSample() > 0.23){
+				System.out.println("Break");
+				break;
+			}
+		}
+		Motor.B.stop(true);
+		Motor.A.stop();
+
+		for(int i = 0; i < 4; i++){
 		Motor.C.rotate(-45);
 		Motor.C.rotate(45);
+		}
+		//KNAPP 0
+		while(uss.getUltraSample() !=0.205){
+			if(uss.getUltraSample()< 0.205){
+				Motor.A.backward();
+				Motor.B.forward();
+			} else if (uss.getUltraSample() > 0.205){
+				System.out.println("Break");
+				break;
+			}
+		}
+		Motor.B.stop(true);
+		Motor.A.stop();
 
-
-
-
-
-
-
-
-
+		Motor.C.rotate(-45);
+		Thread.sleep(300);
+		Motor.C.rotate(45);
 
 
 	}
