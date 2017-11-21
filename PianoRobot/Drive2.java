@@ -203,8 +203,11 @@ class Tangenter {
 			vei = h;
 			} else {vei = v;}
 
-		if(vei> a) {
-			while(a<vei){
+		System.out.println(vei-a);
+
+		if(vei-a>0) {
+			while(vei-a>0){
+				System.out.println(vei-a);
 				a = uss.getUltraSample();
 				Motor.B.backward();
 				Motor.A.forward();
@@ -212,7 +215,8 @@ class Tangenter {
 		}
 
 		else {
-			while(a>vei){
+			while(vei-a<0){
+				System.out.println(vei-a);
 				a = uss.getUltraSample();
 				Motor.B.forward();
 				Motor.A.backward();
@@ -224,6 +228,7 @@ class Tangenter {
 	}
 
 	public double finnVei(char note, int oktav, boolean skarp) { // Finner vei basert p Hre offset
+		System.out.println((lengdeCM/22*noteTilVerdi(note, oktav, skarp))+5);
 		return (lengdeCM/22*noteTilVerdi(note, oktav, skarp))+5;
 	}
 
@@ -249,6 +254,7 @@ class Tangenter {
 		if (skarp = true && i < 22) {
 			i += 0.5;
 		}
+		System.out.println(i);
 		return i;
 	}
 }
