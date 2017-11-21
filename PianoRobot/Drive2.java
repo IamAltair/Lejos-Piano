@@ -169,11 +169,6 @@ class Tangenter {
 		fingering(lengde);
 	}
 
-//mkay
-	public void spillNoteOpt(double lengde, double noteOpt) throws Exception {
-		bevegTilAvstandOpt(noteOpt);
-		fingering(lengde);
-	}
 
 	public void fingering(double lengde) throws Exception {
 		if (v<h) {
@@ -200,20 +195,13 @@ class Tangenter {
 
 	public void bevegTilAvstand(char note, int oktav, boolean skarp) {
 
-		v =  finnVeiV(note, oktav, skarp);
-		h = finnVeiH(note, oktav, skarp);
+		v =  finnVei(note, oktav, skarp);
+		h = finnVei(note, oktav, skarp)-17;
+		float a = uss.getUltraSample();
 
-		s = v - uss.getUltraSample();
-		b = h - uss.getUltraSample();
-
-		s = Math.abs(s);
-		b = Math.abs(b);
-
-		if(s >= b) {
+		if(Math.abs(a - v) >= Math.abs(a - h)) {
 			vei = h;
 			} else {vei = v;}
-
-			float a = uss.getUltraSample();
 
 		if(vei> a) {
 			while(a<vei){
@@ -235,41 +223,8 @@ class Tangenter {
 
 	}
 
-	public void bevegTilAvstandOpt(double noteOpt) { // Hvilken vei som er minst g kjrer den
-				uss.getUltraSample();
-				v = noteOpt;
-				h = noteOpt;
-				float a = uss.getUltraSample();
-				if(v>=h) {
-					vei = h;
-				} else {vei = v;}
-
-				if(vei>=a) {
-					while(vei>=a){
-						a = uss.getUltraSample();
-						Motor.A.forward();
-						Motor.B.backward();
-					}
-				}
-
-				else {
-					while(vei<=a){
-						a = uss.getUltraSample();
-						Motor.A.backward();
-						Motor.B.forward();
-					}
-				}
-
-	}
-
-
-
-	public double finnVeiV(char note, int oktav, boolean skarp) { // Finner vei basert p Venstre Offset
-		return lengdeCM/22*noteTilVerdi(note, oktav, skarp)+5;
-	}
-
-	public double finnVeiH(char note, int oktav, boolean skarp) { // Finner vei basert p Hre offset
-		return lengdeCM/22*noteTilVerdi(note, oktav, skarp)-17+5;
+	public double finnVei(char note, int oktav, boolean skarp) { // Finner vei basert p Hre offset
+		return (lengdeCM/22*noteTilVerdi(note, oktav, skarp))+5;
 	}
 
 	public double noteTilVerdi(char note, int oktav, boolean skarp) { // Gjr note om til verdi
