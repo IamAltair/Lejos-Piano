@@ -17,10 +17,10 @@ public class ColorSensorTest {
     new ColorSensorTest();
   }
 
-  public ColorSensorTest() {
-    Port s1 = localEV3.get().getPort("S1");
-    colorSensor = new EV3ColorSensor(s1);
-    colorprovider = colorSensor.getRedMode();
+  public ColorSensorTest()throws Exception {
+    Port s2 = LocalEV3.get().getPort("S2");
+    colorSensor = new EV3ColorSensor(s2);
+    colorProvider = colorSensor.getRedMode();
     colorSample = new float[colorProvider.sampleSize()];
 
     while(Button.ESCAPE.isUp()){
