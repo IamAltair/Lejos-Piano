@@ -270,9 +270,28 @@ public class Drive3
 		System.out.println("hei paa dei");
 		Tangenter jens = new Tangenter(44);
 		System.out.println("Spill noter");
-		jens.spillNote('A',2,false,0.25);
-		Thread.sleep(2000);
-		jens.spillNote('C',1,false,0.25);
+		jens.spillNote('C',2,false,0.25);
+		jens.spillNote('D',1,false,0.25);
+		jens.spillNote('E',2,false,0.25);
+		jens.spillNote('F',1,false,0.25);
+		jens.spillNote('G',2,false,0.25);
+		jens.spillNote('G',1,false,0.25);
+		jens.spillNote('H',2,false,0.25);
+		jens.spillNote('H',1,false,0.25);
+		jens.spillNote('H',2,false,0.25);
+		jens.spillNote('H',1,false,0.25);
+		jens.spillNote('G',1,false,0.25);
+		jens.spillNote('F',2,false,0.25);
+		jens.spillNote('F',2,false,0.25);
+		jens.spillNote('F',2,false,0.25);
+		jens.spillNote('F',2,false,0.25);
+		jens.spillNote('E',2,false,0.25);
+		jens.spillNote('E',2,false,0.25);
+		jens.spillNote('D',2,false,0.25);
+		jens.spillNote('D',2,false,0.25);
+		jens.spillNote('D',2,false,0.25);
+		jens.spillNote('D',2,false,0.25);
+		jens.spillNote('C',2,false,0.50);
 
 	}
 
