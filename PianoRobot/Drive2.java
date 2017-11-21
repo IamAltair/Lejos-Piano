@@ -159,9 +159,9 @@ class Tangenter {
 		this.lengdeCM = lengdeCM;
 
 		Motor.A.setSpeed(50);
-		Motor.B.setSpeed(50);
-		Motor.C.setSpeed(50);
-		Motor.D.setSpeed(50);
+		Motor.B.setSpeed(200);
+		Motor.C.setSpeed(900);
+		Motor.D.setSpeed(900);
 	}
 
 	public void spillNote(char note, int oktav, boolean skarp, double lengde) throws Exception {
@@ -171,9 +171,10 @@ class Tangenter {
 
 
 	public void fingering(double lengde) throws Exception {
-		if (v<h) {
-			fingeringV(lengde);
-		} else {fingeringH(lengde);}
+		float a = uss.getUltraSample();
+		if (Math.abs(a - v) >= Math.abs(a - h)) {
+			fingeringH(lengde);
+		} else {fingeringV(lengde);}
 	}
 
 	public void fingeringH(double lengde) throws Exception {
@@ -269,9 +270,9 @@ public class Drive2
 		System.out.println("hei paa dei");
 		Tangenter jens = new Tangenter(44);
 		System.out.println("Spill noter");
-		jens.bevegTilAvstand('A',2,false);
+		jens.spillNote('A',2,false,0.25);
 		Thread.sleep(2000);
-		jens.bevegTilAvstand('H',2,false);
+		jens.spillNote('H',2,false,0.25);
 
 	}
 
