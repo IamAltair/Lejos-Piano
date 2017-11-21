@@ -172,7 +172,7 @@ class Tangenter {
 
 	public void fingering(double lengde) throws Exception {
 		float a = uss.getUltraSample();
-		if (Math.abs(a - v) >= Math.abs(a - h)) {
+		if (Math.abs(a - v) > Math.abs(a - h)) {
 			fingeringH(lengde);
 		} else {fingeringV(lengde);}
 	}
@@ -272,7 +272,7 @@ public class Drive3
 		System.out.println("Spill noter");
 		jens.spillNote('A',2,false,0.25);
 		Thread.sleep(2000);
-		jens.spillNote('H',2,false,0.25);
+		jens.spillNote('C',1,false,0.25);
 
 	}
 
