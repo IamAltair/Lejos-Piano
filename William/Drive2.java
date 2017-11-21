@@ -1,4 +1,4 @@
-package William;
+
 import lejos.hardware.motor.*;
 import lejos.hardware.sensor.NXTLightSensor;
 import lejos.hardware.*;
