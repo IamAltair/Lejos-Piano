@@ -1,25 +1,13 @@
-import java.io.Closeable;
-import java.io.File;
-import java.io.FileInputStream;
-import lejos.hardware.Brick;
-import lejos.hardware.BrickFinder;
-import lejos.hardware.Button;
-import lejos.hardware.Device;
-import lejos.hardware.Keys;
-import lejos.hardware.Sound;
-import lejos.hardware.ev3.EV3;
+
 import lejos.hardware.ev3.LocalEV3;
 import lejos.hardware.lcd.*;
 import lejos.hardware.motor.*;
 import lejos.hardware.port.*;
-import lejos.hardware.port.Port;
 import lejos.hardware.sensor.*;
 import lejos.hardware.sensor.EV3ColorSensor;
 import lejos.hardware.sensor.EV3UltrasonicSensor;
-import lejos.hardware.sensor.NXTLightSensor;
 import lejos.hardware.sensor.SensorModes;
 import lejos.robotics.SampleProvider;
-import lejos.utility.Delay;
 
  class Ultrasonic {
 	private static SensorModes sensor;
@@ -115,7 +103,6 @@ class Tangenter {
 		h = (lengdeCM/22*note)+5.0-16.0;
 		System.out.println("M�l er for v: " + v);
 		System.out.println("M�l er for h: " + h);
-		float a = uss.getUltraSample();
 
 		if(Math.abs(a - v) >= Math.abs(a - h)) {
 			vei = h;
