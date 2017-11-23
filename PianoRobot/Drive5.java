@@ -132,8 +132,11 @@ import lejos.*;
 
 	public float getUltraSample() {
 		ultraLeser.fetchSample(ultraSample, 0);
-		return ultraSample[0]*100;
+		float a = ultraSample[0]*100;
+		a = Math.round(a*1000)/1000;
+		return a;
 	}
+
 }
 
 
@@ -158,8 +161,7 @@ class Tangenter {
 		this.bpm = bpm;
 		this.lengdeCM = lengdeCM;
 
-		Motor.A.setSpeed(50);
-		Motor.B.setSpeed(200);
+		Motor.B.setSpeed(100);
 		Motor.C.setSpeed(900);
 		Motor.D.setSpeed(900);
 	}
@@ -170,6 +172,15 @@ class Tangenter {
 		fingering(lengde);
 		System.out.println("note = " + note + ", oktav = " +  oktav + " informasjon END. ");
 		System.out.println();
+
+	}
+
+	public void spillNoteOPT(double note, double lengde) throws Exception {
+			System.out.println(note);
+			bevegTilAvstandOPT(note);
+			fingering(lengde);
+			System.out.println(note + " er ferdig");
+			System.out.println();
 
 	}
 
@@ -184,23 +195,57 @@ class Tangenter {
 	public void fingeringH(double lengde) throws Exception {
 
 		System.out.println("tapp dat H");
-		Motor.D.rotate(-45);
+		Motor.D.rotate(-60);
 		c = lengde*6/9*1000*4;
 		long a = (long) c;
 		Thread.sleep(a);
-		Motor.D.rotate(45);
+		Motor.D.rotate(60);
 	}
 
 	public void fingeringV(double lengde) throws Exception {
 
 		System.out.println("tapp dat V");
-		Motor.C.rotate(-45);
+		Motor.C.rotate(-60);
 		c = lengde*6/9*1000*4;
 		long a = (long) c;
 		Thread.sleep(a);
-		Motor.C.rotate(45);
+		Motor.C.rotate(60);
 	}
 // mkay
+		public void bevegTilAvstandOPT(double note) {
+		float a = uss.getUltraSample();
+		vei =  (lengdeCM/22*note)+4.5;
+		/*h = (lengdeCM/22*note)+5.0-16.0;
+		System.out.println("Mål er for v: " + v);
+		System.out.println("Mål er for h: " + h);
+		float a = uss.getUltraSample();
+
+		if(Math.abs(a - v) >= Math.abs(a - h)) {
+			vei = h;
+			System.out.println("vei = H = " + h);
+			} else {vei = v;
+		System.out.println("vei = V = " + v);}*/
+
+		System.out.println("Vei - a = " + (vei-a));
+
+		if(((vei-a)<-0.5) || (0.5<(vei-a))) {
+		if(vei-a>=0) {
+			while(vei-a>0){
+				a = uss.getUltraSample();
+				Motor.B.backward();
+			}
+		}
+
+		else {
+			while(vei-a<0){
+				a = uss.getUltraSample();
+				Motor.B.forward();
+			}
+		}
+		Motor.B.stop();
+		} else {System.out.println("står stille");}
+
+	}
 
 	public void bevegTilAvstand(char note, int oktav, boolean skarp) {
 
@@ -220,7 +265,6 @@ class Tangenter {
 			while(vei-a>=0){
 				a = uss.getUltraSample();
 				Motor.B.backward();
-				Motor.A.forward();
 			}
 		}
 
@@ -228,7 +272,6 @@ class Tangenter {
 			while(vei-a<=0){
 				a = uss.getUltraSample();
 				Motor.B.forward();
-				Motor.A.backward();
 			}
 		}
 		System.out.println("Vei - a = " + (vei-a) + "Slut");
@@ -238,7 +281,7 @@ class Tangenter {
 	}
 
 	public double finnVei(char note, int oktav, boolean skarp) { // Finner vei basert p Hre offset
-		System.out.println("finnVei = " + (lengdeCM/22*noteTilVerdi(note, oktav, skarp))+5.0);
+		System.out.println(("finnVei = " + (lengdeCM/22*noteTilVerdi(note, oktav, skarp))+5.0));
 		return (lengdeCM/22*noteTilVerdi(note, oktav, skarp))+5.0;
 	}
 
@@ -270,37 +313,65 @@ class Tangenter {
 }
 
 
-public class Drive4
+public class Drive5
 {
 	public static void main(String[] args) throws Exception{
 
-
-
-		System.out.println("hei paa dei");
 		Tangenter jens = new Tangenter(44);
-		System.out.println("Spill noter");
-		jens.spillNote('C',2,false,0.25);
-		jens.spillNote('D',2,false,0.25);
-		jens.spillNote('E',2,false,0.25);
-		jens.spillNote('F',2,false,0.25);
-		jens.spillNote('G',2,false,0.25);
-		jens.spillNote('G',2,false,0.25);
-		jens.spillNote('H',2,false,0.25);
-		jens.spillNote('H',2,false,0.25);
-		jens.spillNote('H',2,false,0.25);
-		jens.spillNote('H',2,false,0.25);
-		jens.spillNote('G',2,false,0.25);
-		jens.spillNote('F',2,false,0.25);
-		jens.spillNote('F',2,false,0.25);
-		jens.spillNote('F',2,false,0.25);
-		jens.spillNote('F',2,false,0.25);
-		jens.spillNote('E',2,false,0.25);
-		jens.spillNote('E',2,false,0.25);
-		jens.spillNote('D',2,false,0.25);
-		jens.spillNote('D',2,false,0.25);
-		jens.spillNote('D',2,false,0.25);
-		jens.spillNote('D',2,false,0.25);
-		jens.spillNote('C',2,false,0.50);
+
+		Port s2 = LocalEV3.get().getPort("S2");
+		EV3ColorSensor colorSensor = new EV3ColorSensor(s2);
+		SampleProvider colorProvider = colorSensor.getRedMode();
+		float[] colorSample = new float[colorProvider.sampleSize()];
+		int array[] = new int[27];
+		System.out.println("Start");
+		Motor.A.setSpeed(300);
+
+		for(int i = 0; i < array.length; i++){
+
+		 colorProvider.fetchSample(colorSample, 0);
+		 if(colorSample[0] > 0.3){array[i] = 1;}else
+		 if(colorSample[0] <= 0.3f && colorSample[0] > 0.1f){array[i] = 2;}
+		 else { array[i] = 3; }
+		 Motor.A.forward();
+		 Thread.sleep(258);
+	 	 Motor.A.stop();
+	 	 Thread.sleep(200);
+
+		}
+		Motor.A.stop();
+
+		for(int i = 0; i < array.length; i++){
+			jens.spillNoteOPT(array[i],1/4);
+			System.out.println(array[i]);
+		}
+
+		Thread.sleep(5000);
+		System.out.println("Lise gikk til skolen");
+		jens.spillNoteOPT(1,1/4);
+		jens.spillNoteOPT(2,1/4);
+		jens.spillNoteOPT(3,1/4);
+		jens.spillNoteOPT(4,1/4);
+		jens.spillNoteOPT(5,1/4);
+		jens.spillNoteOPT(5,1/4);
+		jens.spillNoteOPT(6,1/4);
+		jens.spillNoteOPT(6,1/4);
+		jens.spillNoteOPT(6,1/4);
+		jens.spillNoteOPT(6,1/4);
+		jens.spillNoteOPT(5,1/4);
+		jens.spillNoteOPT(4,1/4);
+		jens.spillNoteOPT(4,1/4);
+		jens.spillNoteOPT(4,1/4);
+		jens.spillNoteOPT(4,1/4);
+		jens.spillNoteOPT(3,1/4);
+		jens.spillNoteOPT(3,1/4);
+		jens.spillNoteOPT(2,1/4);
+		jens.spillNoteOPT(2,1/4);
+		jens.spillNoteOPT(2,1/4);
+		jens.spillNoteOPT(2,1/4);
+		jens.spillNoteOPT(1,1/4);
+		Thread.sleep(200);
+		System.out.println("hei");
 
 	}
 
