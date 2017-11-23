@@ -1,120 +1,25 @@
-import lejos.hardware.motor.*;
-import lejos.hardware.sensor.NXTLightSensor;
-import lejos.hardware.*;
-import lejos.hardware.port.Port;
-import lejos.robotics.SampleProvider;
-import lejos.hardware.ev3.LocalEV3;
-import lejos.hardware.Button;
-import lejos.hardware.sensor.EV3UltrasonicSensor;
-import lejos.hardware.motor.*;
-import lejos.hardware.lcd.*;
-import lejos.hardware.sensor.EV3TouchSensor;
-import lejos.hardware.sensor.EV3ColorSensor;
-import lejos.hardware.sensor.EV3UltrasonicSensor;
-import lejos.hardware.sensor.EV3GyroSensor;
-import lejos.hardware.sensor.NXTTouchSensor;
-import lejos.hardware.sensor.NXTLightSensor;
-import lejos.hardware.sensor.NXTColorSensor;
-import lejos.hardware.sensor.NXTSoundSensor;
-import lejos.hardware.sensor.NXTUltrasonicSensor;
-import lejos.hardware.port.Port;
+import java.io.Closeable;
+import java.io.File;
+import java.io.FileInputStream;
 import lejos.hardware.Brick;
 import lejos.hardware.BrickFinder;
-import lejos.hardware.ev3.EV3;
-import lejos.hardware.Keys;
-import lejos.hardware.sensor.SensorModes;
-import lejos.robotics.SampleProvider;
-import lejos.hardware.sensor.*;
-import lejos.hardware.Sound;
-import lejos.utility.Delay;
-import lejos.hardware.ev3.LocalEV3;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.Closeable;
+import lejos.hardware.Button;
 import lejos.hardware.Device;
-import lejos.hardware.*;
-import lejos.*;
-import lejos.hardware.motor.*;
-import lejos.hardware.sensor.NXTLightSensor;
-import lejos.hardware.*;
-import lejos.robotics.SampleProvider;
-import lejos.robotics.SampleProvider;
+import lejos.hardware.Keys;
 import lejos.hardware.Sound;
-import lejos.utility.Delay;
+import lejos.hardware.ev3.EV3;
 import lejos.hardware.ev3.LocalEV3;
-import java.io.File;
-import java.io.FileInputStream;
-import lejos.hardware.sensor.*;
+import lejos.hardware.lcd.*;
+import lejos.hardware.motor.*;
 import lejos.hardware.port.*;
-import lejos.robotics.SampleProvider;
-import lejos.hardware.motor.*;
-import lejos.hardware.sensor.NXTLightSensor;
-import lejos.hardware.*;
 import lejos.hardware.port.Port;
-import lejos.robotics.SampleProvider;
-import lejos.hardware.ev3.LocalEV3;
-import lejos.hardware.Button;
-import lejos.hardware.sensor.EV3UltrasonicSensor;
-import lejos.hardware.motor.*;
-import lejos.hardware.lcd.*;
-import lejos.hardware.sensor.EV3TouchSensor;
+import lejos.hardware.sensor.*;
 import lejos.hardware.sensor.EV3ColorSensor;
 import lejos.hardware.sensor.EV3UltrasonicSensor;
-import lejos.hardware.sensor.EV3GyroSensor;
-import lejos.hardware.sensor.NXTTouchSensor;
 import lejos.hardware.sensor.NXTLightSensor;
-import lejos.hardware.sensor.NXTColorSensor;
-import lejos.hardware.sensor.NXTSoundSensor;
-import lejos.hardware.sensor.NXTUltrasonicSensor;
-import lejos.hardware.port.Port;
-import lejos.hardware.Brick;
-import lejos.hardware.BrickFinder;
-import lejos.hardware.ev3.EV3;
-import lejos.hardware.Keys;
 import lejos.hardware.sensor.SensorModes;
 import lejos.robotics.SampleProvider;
-import lejos.hardware.sensor.*;
-import lejos.hardware.Sound;
 import lejos.utility.Delay;
-import lejos.hardware.ev3.LocalEV3;
-import java.io.File;
-import java.io.FileInputStream;
-import lejos.hardware.motor.*;
-import lejos.hardware.sensor.NXTLightSensor;
-import lejos.hardware.*;
-import lejos.hardware.port.Port;
-import lejos.robotics.SampleProvider;
-import lejos.hardware.ev3.LocalEV3;
-import lejos.hardware.Button;
-import lejos.hardware.sensor.EV3UltrasonicSensor;
-import lejos.hardware.motor.*;
-import lejos.hardware.lcd.*;
-import lejos.hardware.sensor.EV3TouchSensor;
-import lejos.hardware.sensor.EV3ColorSensor;
-import lejos.hardware.sensor.EV3UltrasonicSensor;
-import lejos.hardware.sensor.EV3GyroSensor;
-import lejos.hardware.sensor.NXTTouchSensor;
-import lejos.hardware.sensor.NXTLightSensor;
-import lejos.hardware.sensor.NXTColorSensor;
-import lejos.hardware.sensor.NXTSoundSensor;
-import lejos.hardware.sensor.NXTUltrasonicSensor;
-import lejos.hardware.port.Port;
-import lejos.hardware.Brick;
-import lejos.hardware.BrickFinder;
-import lejos.hardware.ev3.EV3;
-import lejos.hardware.Keys;
-import lejos.hardware.sensor.SensorModes;
-import lejos.robotics.SampleProvider;
-import lejos.hardware.sensor.*;
-import lejos.hardware.Sound;
-import lejos.utility.Delay;
-import lejos.hardware.ev3.LocalEV3;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.Closeable;
-import lejos.hardware.Device;
-import lejos.hardware.*;
-import lejos.*;
 
  class Ultrasonic {
 	private static SensorModes sensor;
@@ -166,15 +71,6 @@ class Tangenter {
 		Motor.D.setSpeed(900);
 	}
 
-	public void spillNote(char note, int oktav, boolean skarp, double lengde) throws Exception {
-		System.out.println("note = " + note + ", oktav = " +  oktav + " informasjon.");
-		bevegTilAvstand(note, oktav, skarp);
-		fingering(lengde);
-		System.out.println("note = " + note + ", oktav = " +  oktav + " informasjon END. ");
-		System.out.println();
-
-	}
-
 	public void spillNoteOPT(double note, double lengde) throws Exception {
 			System.out.println(note);
 			bevegTilAvstandOPT(note);
@@ -212,19 +108,20 @@ class Tangenter {
 		Motor.C.rotate(60);
 	}
 // mkay
-		public void bevegTilAvstandOPT(double note) {
+	public void bevegTilAvstandOPT(double note) {
+
 		float a = uss.getUltraSample();
 		vei =  (lengdeCM/22*note)+4.5;
-		/*h = (lengdeCM/22*note)+5.0-16.0;
-		System.out.println("Mål er for v: " + v);
-		System.out.println("Mål er for h: " + h);
+		h = (lengdeCM/22*note)+5.0-16.0;
+		System.out.println("Mï¿½l er for v: " + v);
+		System.out.println("Mï¿½l er for h: " + h);
 		float a = uss.getUltraSample();
 
 		if(Math.abs(a - v) >= Math.abs(a - h)) {
 			vei = h;
 			System.out.println("vei = H = " + h);
 			} else {vei = v;
-		System.out.println("vei = V = " + v);}*/
+		System.out.println("vei = V = " + v);}
 
 		System.out.println("Vei - a = " + (vei-a));
 
@@ -243,46 +140,8 @@ class Tangenter {
 			}
 		}
 		Motor.B.stop();
-		} else {System.out.println("står stille");}
+		} else {System.out.println("stï¿½r stille");}
 
-	}
-
-	public void bevegTilAvstand(char note, int oktav, boolean skarp) {
-
-		v =  finnVei(note, oktav, skarp);
-		h = finnVei(note, oktav, skarp)-17;
-		float a = uss.getUltraSample();
-
-		if(Math.abs(a - v) >= Math.abs(a - h)) {
-			vei = h;
-			System.out.println("H");
-			} else {vei = v;
-		System.out.println("V");}
-
-		System.out.println("Vei - a = " + (vei-a));
-
-		if(vei-a>=0) {
-			while(vei-a>=0){
-				a = uss.getUltraSample();
-				Motor.B.backward();
-			}
-		}
-
-		else {
-			while(vei-a<=0){
-				a = uss.getUltraSample();
-				Motor.B.forward();
-			}
-		}
-		System.out.println("Vei - a = " + (vei-a) + "Slut");
-		Motor.A.stop(true);
-		Motor.B.stop(true);
-
-	}
-
-	public double finnVei(char note, int oktav, boolean skarp) { // Finner vei basert p Hre offset
-		System.out.println(("finnVei = " + (lengdeCM/22*noteTilVerdi(note, oktav, skarp))+5.0));
-		return (lengdeCM/22*noteTilVerdi(note, oktav, skarp))+5.0;
 	}
 
 	public double noteTilVerdi(char note, int oktav, boolean skarp) { // Gjr note om til verdi
@@ -312,19 +171,22 @@ class Tangenter {
 	}
 }
 
+class Farge{
 
-public class Drive5
-{
-	public static void main(String[] args) throws Exception{
+	 private int array[] = new int[27];
+	 private float[] colorSample;
+	 EV3ColorSensor colorSensor;
+	 SampleProvider colorProvider;
+	 Port s2 = LocalEV3.get().getPort("S2");
 
-		Tangenter jens = new Tangenter(44);
+	 public Farge(){
+		 colorSensor = new EV3ColorSensor(s2);
+		 colorProvider = colorSensor.getRedMode();
+		 colorSample = new float[colorProvider.sampleSize()];
+	 }
 
-		Port s2 = LocalEV3.get().getPort("S2");
-		EV3ColorSensor colorSensor = new EV3ColorSensor(s2);
-		SampleProvider colorProvider = colorSensor.getRedMode();
-		float[] colorSample = new float[colorProvider.sampleSize()];
-		int array[] = new int[27];
-		System.out.println("Start");
+	 public int[] readColor() throws Exception{
+
 		Motor.A.setSpeed(300);
 
 		for(int i = 0; i < array.length; i++){
@@ -339,11 +201,30 @@ public class Drive5
 	 	 Thread.sleep(200);
 
 		}
-		Motor.A.stop();
 
-		for(int i = 0; i < array.length; i++){
-			jens.spillNoteOPT(array[i],1/4);
-			System.out.println(array[i]);
+		Motor.A.stop();
+		return this.array;
+	}
+}
+
+
+
+
+
+public class Drive5
+{
+	public static void main(String[] args) throws Exception{
+
+		Tangenter jens = new Tangenter(44);
+		Farge reader = new Farge();
+
+		System.out.println("Start");
+
+		int tbl[] = reader.readColor();
+
+		for(int i = 0; i < tbl.length; i++){
+			jens.spillNoteOPT(tbl[i],1/4);
+			System.out.println(tbl[i]);
 		}
 
 		Thread.sleep(5000);
